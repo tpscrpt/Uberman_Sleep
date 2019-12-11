@@ -1,0 +1,5 @@
+I have found (this)[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5779535/].
+
+The page provides data and labels for binary classification with a 
+time-series based on heart-rate, so I can test whether the network is 
+properly setup and tune some parameters to my liking.

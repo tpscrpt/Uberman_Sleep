@@ -1,0 +1,12 @@
+Ensure that the number of samples for every nn can be sqrt'd evenly for 
+even distribution
+
+https://arxiv.org/pdf/1608.08242.pdf
+
+Still have no idea whether I can take 1D time-samples, make them 2D and 
+run a Conv net on them; maybe I don't even need to 2D...
+  The paper does mention that they flatten the input and concatenate the 
+resulting pixel array with values from other images in an attempt to 
+draw temporal relations between frames (exactly what I want).
+
+I think a setup like described in the paper above warrants a try!
