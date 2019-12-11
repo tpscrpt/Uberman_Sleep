@@ -3,3 +3,6 @@ I have found (this)[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5779535/].
 The page provides data and labels for binary classification with a 
 time-series based on heart-rate, so I can test whether the network is 
 properly setup and tune some parameters to my liking.
+
+If you want to read the original data used, either download it from the website
+or extract the tar.gz archive in the data/ folder in this directory.

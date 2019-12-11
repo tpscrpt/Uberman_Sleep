@@ -38,7 +38,70 @@ Batch normalization performed over the whole layer with the same m.
   ePsilon = 10e-5; (batch norm)
   where max is taken along the last axis (filters/channels)
 """
-model = keras.Sequential()
+class TCN():
+  def __init__(self,
+               X, Y,
+               DATA_SHAPE = (2880, 1)
+               RELU_SLOPE = 0.01       # Hyperparameter
+               CONV_FILTER_STEP = 32   # Grows constantly
+               CONV_KERNEL_SIZE = 2    # Small to keep high resolution, reduce for lower power
+               MAX_POOL_SIZE = 2       # Pool over 2 samples
+               HIDDEN_UNITS = 128      # Constant factor for hidden units in layer l
+               DNNl = [1, 1]           # Nb of layers / Multiplier for hidden units layer
+
+    self.X = X
+    self.Y = Y
+    self.RELU_SLOPE = RELU_SLOPE
+    self.CONV_FILTER_STEP = CONV_FILTER_STEP
+    self.CONV_KERNEL_SIZE = CONV_KERNEL_SIZE
+    self.MAX_POOL_SIZE = MAX_POOL_SIZE
+    self.HIDDEN_UNITS = HIDDEN_UNITS
+    self.DNNl = DNNl
+
+    self.model = keras.Sequential()
+    self.callbacks = [
+      keras.callbacks.ModelCheckpoint(
+          filepath='models/best_model.{epoch:02d}-{val_loss:.2f}.h5',
+          monitor='val_loss', save_best_only=True),
+      keras.callbacks.EarlyStopping(monitor='acc', patience=0.98)
+    ]
+
+  def add_encoder(self):
+    self.X = Conv1D(
+      self.CONV_FILTER_STEP * 1,
+      self.CONV_KERNEL_SIZE,
+      input_shape=self.DATA_SHAPE)(self.X)
+    self.X = Activation('relu', a=self.RELU_SLOPE)(self.X)
+    self.X = MaxNormalization()(self.X)
+    self.X = MaxPool1D(self.MAX_POOL_SIZE, strides=2)(self.X)
+
+  def add_decoder(self):
+    self.X = Upsampling1D(2)(self.X)
+    self.X = Conv1D(self.CONV_FILTER_STEP * 2, self.CONV_KERNEL_SIZE)(self.X)
+    self.X = Activation('relu', a=self.RELU_SLOPE)(self.X)
+    self.X = MaxNormalization()(self.X)
+
+  def flatten(self):
+    self.X = Flatten()(self.X)
+
+  def dense(self):
+    for layer in self.DNNl:
+      self.X = Dense(self.HIDDEN_UNITS * layer, activation='relu', a=self.RELU_SLOPE)(self.X)
+
+    self.X = Dense(1, activation='sigmoid')(self.X)
+
+  def compile(self):
+    self.model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+  def fit(self, batch_size, epochs):
+    self.model.fit(self.X,
+                   self.Y,
+                   epochs=epochs,
+                   batch_size=batch_size,
+                   callbacks=self.callbacks)
+
+  def evaluate(self, X, Y):
+    self.model.evaluate(X, Y)
 
 class MaxNormalization(Layer):
 
@@ -52,39 +115,3 @@ class MaxNormalization(Layer):
 
   def call(self, x):
     return 1/(np.amax(x) + epsilon) * x
-
-
-DATA_SHAPE = (2880, 1)
-RELU_SLOPE = 0.01       # Hyperparameter
-CONV_FILTER_STEP = 32   # Grows constantly
-CONV_KERNEL_SIZE = 2    # Small to keep high resolution, reduce for lower power
-MAX_POOL_SIZE = 2       # Pool over 2 samples
-HIDDEN_UNITS = 128      # Constant factor for hidden units in layer l
-DNNl1 = 1               # Multiplier for hidden units in deep layer 1
-DNNl2 = 1               # Multiplier for hidden units in deep layer 2
-
-# <structure>
-#   <encoder>
-X = Conv1D(
-  CONV_FILTER_STEP * 1,
-  CONV_KERNEL_SIZE,
-  input_shape=DATA_SHAPE)(X_train)
-X = Activation('relu', a=RELU_SLOPE)(X)
-X = MaxNormalization()(X)
-X = MaxPool1D(MAX_POOL_SIZE, strides=2)(X)
-#   </encoder>
-#   <decoder>
-X = Upsampling1D(2)(X)
-X = Conv1D(CONV_FILTER_STEP * 2, CONV_KERNEL_SIZE)(X)
-X = Activation('relu', a=RELU_SLOPE)(X)
-X = MaxNormalization()(X)
-#   </decoder>
-#   <dnn>
-X = Flatten()(X)
-X = Dense(HIDDEN_UNITS * DNNl1)(X)
-X = Activation('relu', a=RELU_SLOPE)(X)
-X = Dense(HIDDEN_UNITS * DNNl2)(X)
-X = Activation('relu', a=RELU_SLOPE)(X)
-X = Dense(1, activation='sigmoid')(X)
-#   </dnn>
-# </structure>
