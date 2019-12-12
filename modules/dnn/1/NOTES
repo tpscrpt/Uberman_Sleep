@@ -10,3 +10,17 @@ switch = user is trying to sleep
 this might not be able to predict when the sleep will happen, but might 
 be able to estimate it accurately while the user is sleeping, which is 
 enough for the application.
+
+Off we go!
+
+Need to fix the issue of holes in the data, it doesn't work well with 
+longer-term resolutions. I suggest if the resolution is not available in 
+whole, forgo it for a given time slice. This creates a dependency on the 
+algorithm, but might be worth it if longer resolutions aren't that 
+impactful. Besides, after some testing we may conclude that keeping a 
+slightly corrupted or approximated resolution is overall beneficial to 
+prediction.
+
+During data processing, have a few rules to apply to the data.
+
+If gap > 5% resolution, cannot use resolution OR patch_resolution_before_use
