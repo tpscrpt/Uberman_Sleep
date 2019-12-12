@@ -1,0 +1,12 @@
+Here I'll just mount a simple logistic regression DNN.
+
+The input vector might look like: (m, (ema1, hrvema1, ema2, hrvema2, etc.), 1)
+
+m = training examples
+emaX = exponential moving average of heart rate at given resolution
+hrvema1 = ema of heart rate variability at given resolution
+switch = user is trying to sleep
+
+this might not be able to predict when the sleep will happen, but might 
+be able to estimate it accurately while the user is sleeping, which is 
+enough for the application.
