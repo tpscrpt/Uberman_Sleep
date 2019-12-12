@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+"""
 def linear_weight_moving_average(signal, period):
     buffer = [np.nan] * period
     for i in range(period, len(signal)):
@@ -33,5 +34,5 @@ for i in range(len(resolutions)):
   plt.plot(out[-40:])
 
 plt.show()
-
+"""
 

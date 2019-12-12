@@ -1,0 +1,107 @@
+It's almost impossible for me to find a proper watch for data 
+collection, since I am too chicken to spend money on them because I have 
+no cash.
+
+So I've been spending my morning looking at chips and thinking about how 
+to design a wearable smart watch, or which features I would need.
+
+I had a list of important things, but here's an example:
+  - MT2523 MCU
+  - 4GB eMMC
+  - Vibration
+  - Keypad
+  - BTLE
+  - Battery
+  - HR Monitor
+
+I would use the chip's flash to load an embedded linux OS into memory 
+and go from there. Once linux is loaded it's actually not that hard to 
+make it work.
+
+Maybe I should develop the software to justify buying a dev board for 
+debugging, and then by the grace of God I'll be able to somehow make a 
+PCB layout which works for me?
+
+Dev board brief:
+https://s3-ap-southeast-1.amazonaws.com/mediatek-labs-imgs/downloads/e7e3ee52a03f933dbb4fa26c22efb122.pdf?response-content-disposition=inline%3B%20filename%3DLinkIt_2523_HDK_Product_Brief.pdf&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkgwRgIhAMXz9BgiSTwzWtPKZ9u3dMItgL3Dbrad80GQAGKjQcSjAiEA0qe2%2BPCQHL6oFUrIyEaJz4JLCL4XKlpTMYOcOC5vlaUqxgIIGhABGgw0NDk2OTY5OTIwNjYiDBJebLsJEvDgntjzGSqjAtXaVPHsi3ZExWrBlFeRYP3Tei470LCIGuiliBjSPX4vttlfaG4mjeVn3cx2T8EPQqGGETx6VCtgGemb1Ny2R%2BiySn2raKpThem1STW8sRwkzCefEa1Nqe5WipCnMPIOZHYrPLmKU7pznEuDlmqfn6ZAd12kYIm1aSlmbeviIEx68FR9lgu8SKDWLzKJYIq%2BLO7sYBTHK0Hfw2HejR8n1U9wXBFmejeoV2cKKLUjfaUlwgsve0ymSCogOckBpyEaYZ5Lp7Z%2Fti3KH9MfXqVNt1MlfWKDCphM3PSmz0VZTbRdPVd%2B0HHp8ZrRSKpw6R9eU5ggxl20crc9WZ0FhHZ6M55UP3mSCgRxJ75UamHDx85FVbPISFOZKamCj1R6U6mq%2BC5HIzC628nvBTrHAhWEuhG4J0Ng3eRvzKfVEEJkgEK9Jz9mKbJBPwUtv65vRSGW4%2FE%2FtpBqkZ742sDwmWFmVYyKQWCKmIYVFzpujV%2BtPCQz3TeGIBpxtap1ON4TVhTof7qA9C4h6uqpUDziZFAlkTqwagPI1oIkg8pH0GiwsUULU4e8G8PSilVcJD%2FUrJ7dri48vksYjvExLKslvg6jWlbYNJG17eBF93uztCdwLRB0rR0mVAw%2ByWvhBqqAHTUhsWT185dSG74wV7bq1hnD4%2BsGIiGwLLw94eCCO8ZszhrY8mqhuvpCdZLIRmnDmO4CierGXEbOqLRCu5%2FZOI99TG9a3zwpF1e%2Bt528%2FHdvf26iC2px7YaVicWQLLw4mmR0HA5NAqBVWcrwXG%2Feqmn1wlOKHpjGtPoKnXYs%2FVRGbiQO%2ByIYoeZUj9MeWzLClEHG20vEkg%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWRNAHRNBCWAJJYK3%2F20191212%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20191212T172419Z&X-Amz-SignedHeaders=host&X-Amz-Expires=600&X-Amz-Signature=6da83a6e92a9046bd9732ffa43ae7c3663496e0b2fc42cd229ce62507810138d
+
+Dev board specific:
+https://s3-ap-southeast-1.amazonaws.com/mediatek-labs-imgs/downloads/bb91e7d48d6d242b0ec6b9cc7f321c74.pdf?response-content-disposition=inline%3B%20filename%3DLinkIt_2523_HDK_Users_Guide.pdf&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIgEbhMRhud03KwTwOIlROzV7k0tHGU%2FXryVBpTYbcdrlICIQC4sCtYbcn%2Fi5FVskUcP6zingU05IevqDAa2ZUIGRqWUyrVAggaEAEaDDQ0OTY5Njk5MjA2NiIM%2BJmKP9yNzzHaeX3IKrICPMH0IBpnomRJuHS%2F0ducTXg8UfgiWxwepeOnV%2FPc6J0DMAaETONmD8uUJrBbwu8ZoxspZMHP2886R742p9PF4z1Uj5Mf%2FCohzxf477wBInzUNK1jv36n2v5u85KN%2BjNzV62FjkgAz8uajOg%2FYjf25SVF0JsmvITWhmQXqv7c1sz3aWz%2BOuJwF2%2FCSgxGPz0pB%2BjgxhMkowu5oLtUwZuosuewvJWKs%2Ftn4HEi3VHB647jK%2B%2F3yuYr6%2F3sSq5UkFWnMa8A%2Bd4CDZTmep4KENSxIEU2YtXDrhbC%2FigQlk6xWftccEosm58bLeWWQis7NEXZpolU0LccEvmQdDxWpLDcJBKu749OZ3s2MvRTOU%2FjxfHQgeA3izW7IkabZl2qdBBQKxSaoCXXVgcDMvmRgOSuHMzyMJjbye8FOtQCbCzFJcw0CIrXOIP0MBDB5X01%2FabnIm%2BbH6VwpSw%2FrtIfTrh%2B0kcVtzXikZm8F%2FLlOClZ5ptiN0%2BH%2FeoQhNewF0wq1FEsz7u5b67j75sS5AkgIqCOb2w4bGn9SUJYhmyvMxP0w30eAnLahYVZFpJe8W7v5ttdTRQWFMbQ5m9p01vA9wER4MAUzJEbuQjlw1shYCSOEo%2FzJYGyotjfFrBYufXGkUxpJnQNvINi8jB8GYsa%2BS931C%2BBzdG1hYz8IKRFzmXIdbo2MLEajQMh5SPuVIRa6a5lXmODHR1GcJpTh%2BHPPcfBdqxRO%2BfcP2C6X4ZuKIRdukjUmGiF2njvAXzNcer9F9tlUCOd93%2BalS3bE05vV71F6%2Foi9EsNmie1aV91gclezhs6UBUp0klK7i0iO1oFFsjB3Lw%2BcgkG2zq19iHdDrgIB0Hetmte4xEQUMKJ9nQC7g%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWRNAHRNBB67MMXXD%2F20191212%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20191212T172016Z&X-Amz-SignedHeaders=host&X-Amz-Expires=600&X-Amz-Signature=fd1f9fb0bc7719bb07f6ab21e56e5c8792bb18563f3ea93aa0d21c05d7dc656b
+
+Chip specific:
+https://s3-ap-southeast-1.amazonaws.com/mediatek-labs-imgs/downloads/bb91e7d48d6d242b0ec6b9cc7f321c74.pdf?response-content-disposition=inline%3B%20filename%3DLinkIt_2523_HDK_Users_Guide.pdf&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaDmFwLXNvdXRoZWFzdC0xIkcwRQIgEbhMRhud03KwTwOIlROzV7k0tHGU%2FXryVBpTYbcdrlICIQC4sCtYbcn%2Fi5FVskUcP6zingU05IevqDAa2ZUIGRqWUyrVAggaEAEaDDQ0OTY5Njk5MjA2NiIM%2BJmKP9yNzzHaeX3IKrICPMH0IBpnomRJuHS%2F0ducTXg8UfgiWxwepeOnV%2FPc6J0DMAaETONmD8uUJrBbwu8ZoxspZMHP2886R742p9PF4z1Uj5Mf%2FCohzxf477wBInzUNK1jv36n2v5u85KN%2BjNzV62FjkgAz8uajOg%2FYjf25SVF0JsmvITWhmQXqv7c1sz3aWz%2BOuJwF2%2FCSgxGPz0pB%2BjgxhMkowu5oLtUwZuosuewvJWKs%2Ftn4HEi3VHB647jK%2B%2F3yuYr6%2F3sSq5UkFWnMa8A%2Bd4CDZTmep4KENSxIEU2YtXDrhbC%2FigQlk6xWftccEosm58bLeWWQis7NEXZpolU0LccEvmQdDxWpLDcJBKu749OZ3s2MvRTOU%2FjxfHQgeA3izW7IkabZl2qdBBQKxSaoCXXVgcDMvmRgOSuHMzyMJjbye8FOtQCbCzFJcw0CIrXOIP0MBDB5X01%2FabnIm%2BbH6VwpSw%2FrtIfTrh%2B0kcVtzXikZm8F%2FLlOClZ5ptiN0%2BH%2FeoQhNewF0wq1FEsz7u5b67j75sS5AkgIqCOb2w4bGn9SUJYhmyvMxP0w30eAnLahYVZFpJe8W7v5ttdTRQWFMbQ5m9p01vA9wER4MAUzJEbuQjlw1shYCSOEo%2FzJYGyotjfFrBYufXGkUxpJnQNvINi8jB8GYsa%2BS931C%2BBzdG1hYz8IKRFzmXIdbo2MLEajQMh5SPuVIRa6a5lXmODHR1GcJpTh%2BHPPcfBdqxRO%2BfcP2C6X4ZuKIRdukjUmGiF2njvAXzNcer9F9tlUCOd93%2BalS3bE05vV71F6%2Foi9EsNmie1aV91gclezhs6UBUp0klK7i0iO1oFFsjB3Lw%2BcgkG2zq19iHdDrgIB0Hetmte4xEQUMKJ9nQC7g%3D%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIAWRNAHRNBB67MMXXD%2F20191212%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-Date=20191212T172016Z&X-Amz-SignedHeaders=host&X-Amz-Expires=600&X-Amz-Signature=fd1f9fb0bc7719bb07f6ab21e56e5c8792bb18563f3ea93aa0d21c05d7dc656b
+
+Required software will be quite simple:
+  - Keypad macro to flag begin sampling
+  - Keypad macro to flag awake or trying to sleep
+  - Collect sample every 5 seconds when sampling activated
+  - Guess time of sleep every 60 seconds when both flags set
+  - Keep an average until minute 19 after average sleep guess
+  - Vibrate at minute 20 until keypad stops
+  - Keypad Macro to input how many seconds it took to fall asleep
+  - Modify data on-disk to transform "trying to sleep" into "most likely asleep"
+    - Run training on device OR
+    - Sync data to phone and train there
+
+It's really not that many steps when u think about it. A lot is taken 
+care of by the MCU, like vibration driver, clock, computing, it has a 
+bunch of pins... 6 consoles! This is kind of like a state machine.
+
+Let's iron out some functions we will need:
+```
+sampling = False
+trying_sleep = False
+set_seconds_to_sleep = None
+last_action_key = None
+
+callback = None
+buffer = []
+
+def process_keypad(key):
+  if key == ENTER:
+    if callback is not None:
+      callback(buffer)
+      buffer = []
+
+    last_action_key = None
+
+  elif last_action_key is None:
+    last_action_key = key   
+
+  if set_seconds_to_sleep is not None && last_action_key is 7:
+    if callback is None:
+      callback = (edit_samples_on_disk(set_seconds_to_sleep, **kwargs))
+    buffer += key
+
+  switch(key):
+    ...
+
+guesses = []
+waiting_guess = 0
+when sampling:
+  sample = [time.now, get_HR_data(), trying_sleep]
+  write_to_disk(filename=session_start_time, sample)
+  if waiting_guess is 12:
+    guesses += guess_sleep_time(session_start_time)
+    if time.now - average(guesses) >= 20 * 60:
+      vibrate_until_kill()
+      set_seconds_to_sleep = session_start_time
+      train_with_difference()
+    waiting_guess = 0
+
+  waiting_guess += 5
+  wait(5)
+```
+
+EDIT: It might be powerful to have the trying to sleep flag be an input 
+feature, because it is not the label (the corrected version is the 
+label)
+
+The above is pseudocode for a fully operational system. We still need to 
+collect data and train a model before we can use the above.
+
+Even if the watch is only accurate to 2-3 minutes, it will be more than 
+worth my efforts.
+
+============================================================================
+
