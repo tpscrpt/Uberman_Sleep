@@ -1,0 +1,56 @@
+This will be the notepad for this project.
+
+Basically, I need a solution for sleeping X amount of minutes, as 
+precisely as possible.
+
+I think I can create a neural net which can infer time of falling asleep 
+based on only heart rate data.
+
+I believe the industry standard is really bad (relies on people waring 
+smartwatch while going to bed, mainly focuses on whether the watch is 
+moving, adding a few minutes because people dont sleep as soon as they 
+stop moving, more likely to log sleep if at night, etc.) This is the 
+reason why there doesn't exist this application already. People arent 
+able to infer when u fall asleep.
+
+So, maybe I should use a combination of heart rate and accelerometer; 
+but that data I can't practice on. I would need to get a device and log 
+my sleep with a custom app. Unfortunately I'm uncomfortable with 
+purchasing gadgets for projects, because in the past I have never 
+completed a project for which I needed to purchase some hardware. 
+Granted, I do still plan to use some of the hardware I've purchased for 
+practice in other domains.
+
+It's really a bummer to not get it on the first try and not know what 
+the reason is. So I'm super depressed right now because I really want to 
+make this application happen. I think the potential is huge, for 
+undisclosed reasons.
+
+JESUS im sad.
+
+Ok, here's what I at the very least have:
+ - Real life heart rate data
+ - Some knowledge on working with bigger datasets
+
+Maybe the secret to succeeding is manually reducing my heart rate when I 
+fall asleep so I can have a hard floor for when "asleep" is counted... 
+lol
+
+Based on my limited sleep knowledge, I would guess that heart rate 
+variability is the key feature to look at.
+
+Perhaps I can even solve this issue with a linear regression. But that 
+would mean that I should cool off in relatively the same time for 
+accurate measures. That's not really an option, but I'm not sure how you 
+can even get a better resolution.
+
+Now that I think about it, maybe a 2D Conv might do the trick. Here me out.
+I can have different sections of the 2D plane be for different time scales.
+
+Ok that's pretty much all I got... haaa ha
+
+Perhaps the best thing I can do is read research papers, try to 
+implement the networks which people have tested on similar or the same 
+data and develop a better intuition for this problem over time.
+
+Wish me luck.
