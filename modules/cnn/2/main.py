@@ -10,18 +10,18 @@ labels = np.load('./data/labels_shifted.npy', allow_pickle=True)
 print(labels.shape, data.shape)
 
 model = keras.Sequential([
-  keras.layers.Conv1D(16, 4, strides=1, activation='relu', input_shape=(2000,2), batch_size=1000),
+  keras.layers.Conv1D(32, 10, strides=1, activation='relu', input_shape=(2000,2), batch_size=1000),
   keras.layers.BatchNormalization(),
-  keras.layers.MaxPooling1D(2, 4),
-#  keras.layers.Conv1D(24, 4, strides=1, activation='relu'),
+  keras.layers.MaxPooling1D(4, 4),
+#  keras.layers.Conv1D(32, 10, strides=1, activation='relu'),
 #  keras.layers.BatchNormalization(),
-#  keras.layers.MaxPooling1D(2, 4),
+#  keras.layers.MaxPooling1D(4, 2),
   keras.layers.UpSampling1D(2),
   keras.layers.Conv1D(32, 4, strides=1, activation='relu'),
   keras.layers.BatchNormalization(),
   keras.layers.Flatten(),
-  keras.layers.Dense(80, activation='relu'),
-  keras.layers.Dense(40, activation='relu'),
+  keras.layers.Dense(512, activation='relu'),
+  keras.layers.Dense(512, activation='relu'),
   keras.layers.Dense(1, activation='sigmoid')
 ])
 
