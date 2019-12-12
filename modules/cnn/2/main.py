@@ -4,9 +4,13 @@ import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 
-data = np.load('./data/data_clean.npy', allow_pickle=True)
-labels = np.load('./data/labels_clean.npy', allow_pickle=True)
+data = np.memmap('./data/data_concat.npy', shape=(400000, 2000, 2), dtype=float, mode='r')
+labels = np.load('./data/labels_shifted.npy', allow_pickle=True)
 
+print(labels.shape, data.shape)
+
+exit()
+"""
 model = keras.Sequential([
   keras.layers.Conv1D(32, 4, strides=1, input_shape=(2000,2), batch_size=400),
   keras.layers.Activation('relu', a=0.01),
@@ -36,3 +40,4 @@ callbacks = [
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
 model.fit(X_train, Y_train, validation_split=0.1)
+"""
