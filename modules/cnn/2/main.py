@@ -10,18 +10,18 @@ labels = np.load('./data/labels_shifted.npy', allow_pickle=True)
 print(labels.shape, data.shape)
 
 model = keras.Sequential([
-  keras.layers.Conv1D(32, 10, strides=1, activation='relu', input_shape=(2000,2), batch_size=1000),
+  keras.layers.Conv1D(2000, 2, strides=1, activation='relu', input_shape=(2000,2), batch_size=100),
   keras.layers.BatchNormalization(),
-  keras.layers.MaxPooling1D(4, 4),
+  keras.layers.MaxPooling1D(2, 2),
 #  keras.layers.Conv1D(32, 10, strides=1, activation='relu'),
 #  keras.layers.BatchNormalization(),
-#  keras.layers.MaxPooling1D(4, 2),
-  keras.layers.UpSampling1D(2),
-  keras.layers.Conv1D(32, 4, strides=1, activation='relu'),
-  keras.layers.BatchNormalization(),
+#  keras.layers.MaxPooling1D(2, 2),
+#  keras.layers.UpSampling1D(2),
+#  keras.layers.Conv1D(32, 2, strides=1, activation='relu'),
+#  keras.layers.BatchNormalization(),
   keras.layers.Flatten(),
-  keras.layers.Dense(512, activation='relu'),
-  keras.layers.Dense(512, activation='relu'),
+  keras.layers.Dense(56, activation='relu'),
+  keras.layers.Dense(56, activation='relu'),
   keras.layers.Dense(1, activation='sigmoid')
 ])
 
@@ -32,4 +32,4 @@ callbacks = [
 
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
-model.fit(data, labels, validation_split=0.1)
+model.fit(data[:40000], labels[:40000], validation_split=0.1)
