@@ -1,0 +1,154 @@
+EESchema Schematic File Version 4
+LIBS:project-cache
+EELAYER 26 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L project-rescue:MAX30102EFD+-2019-12-14_17-30-25 U?
+U 1 1 5DF51DA7
+P 1600 5250
+F 0 "U?" H 2900 5837 60  0000 C CNN
+F 1 "MAX30102EFD+" H 2900 5731 60  0000 C CNN
+F 2 "21-0880B" H 2900 5790 60  0001 C CNN
+F 3 "" H 1600 5250 60  0000 C CNN
+	1    1600 5250
+	1    0    0    -1  
+$EndComp
+$Comp
+L MCU_MAX32652GWE:MAX32652GWE+ U?
+U 2 1 5DF5A9D4
+P 8650 1900
+F 0 "U?" H 9650 2287 60  0000 C CNN
+F 1 "MAX32652GWE+" H 9650 2181 60  0000 C CNN
+F 2 "21-100219C_W1404A4+1" H 9650 2140 60  0001 C CNN
+F 3 "" H 8650 1900 60  0000 C CNN
+	2    8650 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L PMU_MAX20345AEWN:MAX20345AEWN+ U?
+U 1 1 5DF5AD3E
+P 5600 2050
+F 0 "U?" H 6600 2437 60  0000 C CNN
+F 1 "MAX20345AEWN+" H 6600 2331 60  0000 C CNN
+F 2 "21-100260A_W563H3+1" H 6600 2290 60  0001 C CNN
+F 3 "" H 5600 2050 60  0000 C CNN
+	1    5600 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L dk_Memory-Connectors-PC-Card-Sockets:2908-05WB-MG J?
+U 1 1 5DF5B38D
+P 2000 3650
+F 0 "J?" H 2628 3678 60  0000 L CNN
+F 1 "2908-05WB-MG" H 2628 3572 60  0000 L CNN
+F 2 "digikey-footprints:MicroSD_2908-05WB-MG" H 2200 3850 60  0001 L CNN
+F 3 "http://multimedia.3m.com/mws/media/416257O/3mtm-card-connector-microsdtm-2900-series-ts2197.pdf" H 2200 3950 60  0001 L CNN
+F 4 "3M5607CT-ND" H 2200 4050 60  0001 L CNN "Digi-Key_PN"
+F 5 "2908-05WB-MG" H 2200 4150 60  0001 L CNN "MPN"
+F 6 "Connectors, Interconnects" H 2200 4250 60  0001 L CNN "Category"
+F 7 "Memory Connectors - PC Card Sockets" H 2200 4350 60  0001 L CNN "Family"
+F 8 "http://multimedia.3m.com/mws/media/416257O/3mtm-card-connector-microsdtm-2900-series-ts2197.pdf" H 2200 4450 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/3m/2908-05WB-MG/3M5607CT-ND/1242498" H 2200 4550 60  0001 L CNN "DK_Detail_Page"
+F 10 "CONN MICRO SD CARD PUSH-PUSH R/A" H 2200 4650 60  0001 L CNN "Description"
+F 11 "3M" H 2200 4750 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 2200 4850 60  0001 L CNN "Status"
+	1    2000 3650
+	1    0    0    -1  
+$EndComp
+$Comp
+L dk_USB-DVI-HDMI-Connectors:0473460001 J?
+U 1 1 5DF5B73C
+P 3150 2050
+F 0 "J?" H 3213 2773 50  0000 C CNN
+F 1 "0473460001" H 3213 2682 50  0000 C CNN
+F 2 "digikey-footprints:USB_Micro_B_Female_0473460001" H 3350 2250 60  0001 L CNN
+F 3 "https://www.molex.com/pdm_docs/sd/473460001_sd.pdf" H 3350 2350 60  0001 L CNN
+F 4 "WM17141CT-ND" H 3350 2450 60  0001 L CNN "Digi-Key_PN"
+F 5 "0473460001" H 3350 2550 60  0001 L CNN "MPN"
+F 6 "Connectors, Interconnects" H 3350 2650 60  0001 L CNN "Category"
+F 7 "USB, DVI, HDMI Connectors" H 3350 2750 60  0001 L CNN "Family"
+F 8 "https://www.molex.com/pdm_docs/sd/473460001_sd.pdf" H 3350 2850 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/molex/0473460001/WM17141CT-ND/1782474" H 3350 2950 60  0001 L CNN "DK_Detail_Page"
+F 10 "CONN RCPT USB2.0 MICRO B SMD R/A" H 3350 3050 60  0001 L CNN "Description"
+F 11 "Molex" H 3350 3150 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 3350 3250 60  0001 L CNN "Status"
+	1    3150 2050
+	1    0    0    -1  
+$EndComp
+$Comp
+L Motor:Motor_DC M?
+U 1 1 5DF5BC31
+P 4450 3450
+F 0 "M?" H 4608 3446 50  0000 L CNN
+F 1 "Motor_DC" H 4608 3355 50  0000 L CNN
+F 2 "" H 4450 3360 50  0001 C CNN
+F 3 "~" H 4450 3360 50  0001 C CNN
+	1    4450 3450
+	1    0    0    -1  
+$EndComp
+$Comp
+L dk_Alarms-Buzzers-and-Sirens:PKMCS0909E4000-R1 BZ?
+U 1 1 5DF5BDE3
+P 4150 2750
+F 0 "BZ?" H 4490 2858 60  0000 L CNN
+F 1 "PKMCS0909E4000-R1" H 4490 2752 60  0000 L CNN
+F 2 "digikey-footprints:Piezo_9x9mm_PKMCS0909E4000-R1" H 4350 2950 60  0001 L CNN
+F 3 "https://www.murata.com/~/media/webrenewal/products/sound/sounder/vppt-buzj083-d.ashx" H 4350 3050 60  0001 L CNN
+F 4 "490-9647-1-ND" H 4350 3150 60  0001 L CNN "Digi-Key_PN"
+F 5 "PKMCS0909E4000-R1" H 4350 3250 60  0001 L CNN "MPN"
+F 6 "Audio Products" H 4350 3350 60  0001 L CNN "Category"
+F 7 "Alarms, Buzzers, and Sirens" H 4350 3450 60  0001 L CNN "Family"
+F 8 "https://www.murata.com/~/media/webrenewal/products/sound/sounder/vppt-buzj083-d.ashx" H 4350 3550 60  0001 L CNN "DK_Datasheet_Link"
+F 9 "/product-detail/en/murata-electronics-north-america/PKMCS0909E4000-R1/490-9647-1-ND/4878401" H 4350 3650 60  0001 L CNN "DK_Detail_Page"
+F 10 "AUDIO PIEZO TRANSDUCER 12.5V SMD" H 4350 3750 60  0001 L CNN "Description"
+F 11 "Murata Electronics North America" H 4350 3850 60  0001 L CNN "Manufacturer"
+F 12 "Active" H 4350 3950 60  0001 L CNN "Status"
+	1    4150 2750
+	1    0    0    -1  
+$EndComp
+$Comp
+L Switch:SW_Push SW?
+U 1 1 5DF5C430
+P 4000 4450
+F 0 "SW?" H 4000 4735 50  0000 C CNN
+F 1 "SW_Push" H 4000 4644 50  0000 C CNN
+F 2 "" H 4000 4650 50  0001 C CNN
+F 3 "" H 4000 4650 50  0001 C CNN
+	1    4000 4450
+	1    0    0    -1  
+$EndComp
+$Comp
+L Battery_Management:MAX1811 U?
+U 1 1 5DF5CD35
+P 1950 1900
+F 0 "U?" H 2000 2367 50  0000 C CNN
+F 1 "MAX1811" H 2000 2276 50  0000 C CNN
+F 2 "Package_SO:SOIC-8_3.9x4.9mm_P1.27mm" H 2200 1550 50  0001 L CNN
+F 3 "https://datasheets.maximintegrated.com/en/ds/MAX1811.pdf" H 1950 1200 50  0001 C CNN
+	1    1950 1900
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:Battery_Cell BT?
+U 1 1 5DF5CFE8
+P 3700 3200
+F 0 "BT?" H 3818 3296 50  0000 L CNN
+F 1 "Battery_Cell" H 3818 3205 50  0000 L CNN
+F 2 "" V 3700 3260 50  0001 C CNN
+F 3 "~" V 3700 3260 50  0001 C CNN
+	1    3700 3200
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

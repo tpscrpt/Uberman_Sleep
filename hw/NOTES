@@ -7,12 +7,14 @@ to design a wearable smart watch, or which features I would need.
 
 I had a list of important things, but here's an example:
   - MT2523 MCU
-  - 4GB eMMC
-  - Vibration
-  - Keypad
-  - BTLE
+  - 4GB SD Module integrated?
+  - Vibration simple: wire motor to correct pins, set flag in software
+  - Keypad: extent of integration?
+  - BTLE needed?
   - Battery
-  - HR Monitor
+  - HR Monitor I2C or SPI connection
+  - LCM Modules integrated?
+  - uUSB connector
 
 I would use the chip's flash to load an embedded linux OS into memory 
 and go from there. Once linux is loaded it's actually not that hard to 
@@ -105,3 +107,44 @@ worth my efforts.
 
 ============================================================================
 
+UPDATE for the watch, we are making some progress!
+
+Now, I have an OK idea of the steps I need to take to develop an electronic product:
+ 1. Find a use case
+ 2. List out required active components
+ 3. Create block diagram showing connections
+ 4. Download EDA/PCB files for parts
+ 5. Make schematic
+ 6. Make Gerber from schematic
+ 7. Test outputs
+ 8. Order custom PCB
+ 9. Test PCB, Program, Debug
+ 10. Design an enclosure
+ 11. 3D print enclosure
+ 12. Verify PCB/enclosure dynamic
+
+After that, I don't really need to pay attention because my goal is not mass production.
+
+I want to do designer lifestyle electronics.
+
+In this case, I will KISS for the "watch" (really a wristband with sensors, 2 buttons and ML firmware).
+
+So, that brings us to our current modifications in terms of which parts to use, what is useful and what isn't.
+
+I had to reluctantly let go of the Mediatek MCU platform. Even though it does provide everything out of the box, I couldn't find proper EDA or 
+other open-source schematic symbols or footprints when it came to drawing a schematic for that system. I ended up doing some more research and 
+it turns out that the manufacturer who makes the heart-rate sensor also makes MCU's with the same ARM Cortex-M4 core as the MT2523.
+
+Most of the components I will be using will come from Maxim Integrated if possible, because they always provide schematic symbols, footprints 
+and 3d models which helps a lot for designing.
+
+ - MAX3265{0..2} choice of 3 similar MCU's, varying degree of cache and memory
+ - Vibrator motor (https://www.digikey.ca/en/products/detail/seeed-technology-co-ltd/316040001/5487672)
+ - Piezo buzzer (https://www.digikey.ca/en/products/detail/murata-electronics/PKMCS0909E4000-R1/4878400?s=N4IgTCBcDaICwE4AMBaBA2OB2FBGFAcgCIgC6AvkA)
+ - 1 Button (https://www.digikey.ca/en/products/detail/c-k/D6C10-F2-LFS/1466340)
+ - Li rechargeable battery (https://www.alibaba.com/product-detail/Rechargeable-3-7v-303040-300mah-lipo_62318443365.html)
+ - Micro-usb port (https://www.digikey.com/products/en?keywords=WM17141CT-ND) - dk symbols and footprints
+ - Battery charger (https://www.digikey.ca/en/products/detail/maxim-integrated/MAX1811ESA/1513383)
+ - Power-management Unit (https://www.digikey.ca/product-detail/en/maxim-integrated/MAX20345AEWN/MAX20345AEWN-ND/9694730)
+ - HR sensor chip (https://www.digikey.ca/product-detail/en/maxim-integrated/MAX30102EFD/MAX30102EFD-ND/6166869)
+ - SDC mount (https://www.digikey.ca/en/products/detail/3m/2908-05WB-MG/1242497)
