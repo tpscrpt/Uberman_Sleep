@@ -154,4 +154,5 @@
   (lib (name MCU_MAX32652GWE)(type Legacy)(uri /home/jeremi/Documents/Development/Uberman_Sleep/hw/schematic/components/KiCAD/2019-12-15_02-33-04/2019-12-15_02-33-04.lib)(options "")(descr ""))
   (lib (name project-rescue)(type Legacy)(uri ${KIPRJMOD}/project-rescue.lib)(options "")(descr ""))
   (lib (name 2019-12-14_17-30-25)(type Legacy)(uri /home/jeremi/Documents/Development/Uberman_Sleep/hw/schematic/components/KiCAD/hr_monitor/2019-12-14_17-30-25.lib)(options "")(descr ""))
+  (lib (name PMU_MAX20345AEWN_rearranged)(type Legacy)(uri /home/jeremi/Documents/Development/Uberman_Sleep/hw/schematic/components/KiCAD/pmu/PMU_MAX20345AEWN_rearranged.lib)(options "")(descr ""))
 )
