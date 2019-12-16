@@ -1,0 +1,122 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L MAX86141ENP:MAX86141ENP+T U?
+U 1 1 5DF779ED
+P 4750 3000
+F 0 "U?" H 5850 3487 60  0000 C CNN
+F 1 "MAX86141ENP+T" H 5850 3381 60  0000 C CNN
+F 2 "21-100134A_20" H 5850 3340 60  0001 C CNN
+F 3 "" H 4750 3000 60  0000 C CNN
+	1    4750 3000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8500 3650 8700 3650
+$Comp
+L power:GNDREF #PWR?
+U 1 1 5DF81E99
+P 8700 3650
+F 0 "#PWR?" H 8700 3400 50  0001 C CNN
+F 1 "GNDREF" V 8705 3522 50  0000 R CNN
+F 2 "" H 8700 3650 50  0001 C CNN
+F 3 "" H 8700 3650 50  0001 C CNN
+	1    8700 3650
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8500 3650 8500 3750
+Wire Wire Line
+	6950 3300 7200 3300
+$Comp
+L Device:C_Small C?
+U 1 1 5DF84B09
+P 7300 3300
+F 0 "C?" V 7071 3300 50  0000 C CNN
+F 1 "1uF" V 7162 3300 50  0000 C CNN
+F 2 "" H 7300 3300 50  0001 C CNN
+F 3 "~" H 7300 3300 50  0001 C CNN
+	1    7300 3300
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7400 3300 7550 3300
+Wire Wire Line
+	6950 3650 7000 3650
+Wire Wire Line
+	6950 3750 7200 3750
+Wire Wire Line
+	7200 3650 7200 3750
+Connection ~ 7200 3750
+Wire Wire Line
+	6950 2850 7000 2850
+$Comp
+L Device:C_Small C?
+U 1 1 5DF874F0
+P 7300 2850
+F 0 "C?" V 7071 2850 50  0000 C CNN
+F 1 "10uF" V 7162 2850 50  0000 C CNN
+F 2 "" H 7300 2850 50  0001 C CNN
+F 3 "~" H 7300 2850 50  0001 C CNN
+	1    7300 2850
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	7550 2950 7550 3300
+Wire Wire Line
+	7400 2850 7400 2950
+Wire Wire Line
+	6950 2950 7400 2950
+Connection ~ 7400 2950
+Wire Wire Line
+	7400 2950 7550 2950
+Connection ~ 7550 2950
+Connection ~ 8500 3650
+Wire Wire Line
+	7550 2950 8500 2950
+Wire Wire Line
+	8500 2950 8500 3650
+Wire Wire Line
+	7000 2500 7000 2850
+Connection ~ 7000 2850
+Wire Wire Line
+	7000 2850 7200 2850
+Wire Wire Line
+	7000 2850 7000 3650
+Connection ~ 7000 3650
+Wire Wire Line
+	7000 3650 7200 3650
+Wire Wire Line
+	6900 2500 7000 2500
+Connection ~ 7000 2500
+Wire Wire Line
+	7000 2500 7100 2500
+Text Notes 6900 2450 0    50   ~ 0
+1.8V
+Wire Wire Line
+	7200 3750 8500 3750
+Wire Wire Line
+	8400 4200 8500 4200
+Wire Wire Line
+	8500 4200 8500 4300
+Connection ~ 8500 4200
+Wire Wire Line
+	8500 4200 8600 4200
+Text Notes 8450 4150 0    50   ~ 0
+5.0V
+Wire Wire Line
+	6950 4300 8500 4300
+$EndSCHEMATC

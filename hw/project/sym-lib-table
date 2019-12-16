@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name main-rescue)(type Legacy)(uri ${KIPRJMOD}/main-rescue.lib)(options "")(descr "")(disabled))
+  (lib (name MAX86141ENP)(type Legacy)(uri /home/jeremi/Documents/Development/Uberman_Sleep/hw/components/MAX86141ENP/MAX86141ENP.lib)(options "")(descr ""))
+)
