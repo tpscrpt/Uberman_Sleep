@@ -140,7 +140,6 @@ and 3d models which helps a lot for designing.
 
  - MAX3265{0..2} choice of 3 similar MCU's, varying degree of cache and memory
  - Vibrator motor (https://www.digikey.ca/en/products/detail/seeed-technology-co-ltd/316040001/5487672)
- - Piezo buzzer (https://www.digikey.ca/en/products/detail/murata-electronics/PKMCS0909E4000-R1/4878400?s=N4IgTCBcDaICwE4AMBaBA2OB2FBGFAcgCIgC6AvkA)
  - 1 Button (https://www.digikey.ca/en/products/detail/c-k/D6C10-F2-LFS/1466340)
  - Li rechargeable battery (https://www.alibaba.com/product-detail/Rechargeable-3-7v-303040-300mah-lipo_62318443365.html)
  - Micro-usb port (https://www.digikey.com/products/en?keywords=WM17141CT-ND) - dk symbols and footprints
@@ -148,4 +147,4 @@ and 3d models which helps a lot for designing.
  - Power-management Unit (https://www.digikey.ca/product-detail/en/maxim-integrated/MAX20345AEWN/MAX20345AEWN-ND/9694730)
  - HR sensor chip (https://www.digikey.ca/product-detail/en/maxim-integrated/MAX30102EFD/MAX30102EFD-ND/6166869)
  - SDC mount (https://www.digikey.ca/en/products/detail/3m/2908-05WB-MG/1242497)
- - JTAG connector ()
+ - JTAG 4POS Header ()
