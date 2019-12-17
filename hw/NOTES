@@ -140,11 +140,32 @@ and 3d models which helps a lot for designing.
 
  - MAX3265{0..2} choice of 3 similar MCU's, varying degree of cache and memory
  - Vibrator motor (https://www.digikey.ca/en/products/detail/seeed-technology-co-ltd/316040001/5487672)
- - 1 Button (https://www.digikey.ca/en/products/detail/c-k/D6C10-F2-LFS/1466340)
+ - 4 switches (https://www.digikey.ca/product-detail/en/grayhill-inc/87FC3-201/GH7750-ND/2680886)
  - Li rechargeable battery (https://www.alibaba.com/product-detail/Rechargeable-3-7v-303040-300mah-lipo_62318443365.html)
  - Micro-usb port (https://www.digikey.com/products/en?keywords=WM17141CT-ND) - dk symbols and footprints
- - Battery charger (https://www.digikey.ca/en/products/detail/maxim-integrated/MAX1811ESA/1513383)
- - Power-management Unit (https://www.digikey.ca/product-detail/en/maxim-integrated/MAX20345AEWN/MAX20345AEWN-ND/9694730)
+ - Power-management Unit (https://www.digikey.ca/product-detail/en/maxim-integrated/MAX20335AEWX/MAX20335AEWX-ND/9522072)
  - HR sensor chip (https://www.digikey.ca/product-detail/en/maxim-integrated/MAX30102EFD/MAX30102EFD-ND/6166869)
  - SDC mount (https://www.digikey.ca/en/products/detail/3m/2908-05WB-MG/1242497)
  - JTAG 4POS Header ()
+
+==========================================
+
+SO, when taking into account all the physical aspects of making this device, I came to the conclusion that I need to elevate the HR sensor off of the main PCB. This is 
+because it needs to be almost directly into contact with my skin to work properly (especially given the integrated solution I'm using which can be seen as lower quality 
+than average).
+
+I was really not down to have to mess with flex cable designs, which are very common in the smart watch market for connecting the distant HR sensor. Turns out I can 
+probably just use 2 PCBs: a main one and one dedicated to the HR sensor.
+
+The layers of the design I'm imagining are as follows:
+ - Top half of the frame, with part of it being a glass or acrylic window peering into a small enclosure
+   ====-----=========
+       |_ _|
+ - The HR sensor is housed into the enclosure and exposes its pins through a female header
+ - The main PCB layer which is connected to the HR sensor through its own female header and a M-M set of cables (like SATA but smaller)
+ - On the other side of the PCB is where the battery and keypad modules stand
+ - Bottom half of the frame, with no window but a small part of the edge taken off to show the keypad module
+
+The main technical challenge here is the glass and how to insert the HR sensor and fasten it properly.
+
+I see all the SW designs employing a protruded enclosure to really give leeway to the sensor to get accurate measurements.
