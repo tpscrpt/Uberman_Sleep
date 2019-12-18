@@ -169,3 +169,7 @@ The layers of the design I'm imagining are as follows:
 The main technical challenge here is the glass and how to insert the HR sensor and fasten it properly.
 
 I see all the SW designs employing a protruded enclosure to really give leeway to the sensor to get accurate measurements.
+
+UPDATE: I will make a PCB for the HR sensor that is flush with it and glue its edges to the enclosure. The back (bottom) of the PCB will show a connector. No more 
+glass, not useful. Maybe if I run into problems with the sensor getting scratched I'll print a new top part and glue a slim piece of glass over it. Now I have the 
+chance to practice a bit of schematic and PCB gerber gen!
