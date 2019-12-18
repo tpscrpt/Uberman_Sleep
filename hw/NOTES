@@ -173,3 +173,66 @@ I see all the SW designs employing a protruded enclosure to really give leeway t
 UPDATE: I will make a PCB for the HR sensor that is flush with it and glue its edges to the enclosure. The back (bottom) of the PCB will show a connector. No more 
 glass, not useful. Maybe if I run into problems with the sensor getting scratched I'll print a new top part and glue a slim piece of glass over it. Now I have the 
 chance to practice a bit of schematic and PCB gerber gen!
+
+Reading data from HR sensor FIFO:
+ 1. Get FIFO_WR_PTR
+  - START;
+  - Address device with write mode?? the term "write mode" doesnt appear anywhere else in the fucking document
+  - Send address of FIFO_WR_PTR;
+  - REPEATED_START;
+  - Send device address + "read mode" .. WTF?
+  - Read FIFO_WR_PTR;
+  - STOP;
+ 2. The central processor evaluates the number of samples to be read from the FIFO
+  - NUM_AVAILABLE_SAMPLES = FIFO_WR_PTR - FIFO_RD_PTR .. An error in the pseudocode.. NICE!
+  - NUM_SAMPLES_TO_READ <= NUM_AVAILABLE_SAMPLES
+ 3. Read NUM_SAMPLES_TO_READ samples from the FIFO
+  - START;
+  - Send device address + write mode (I2C spec)
+  - Send address of FIFO_DATA;
+  - REPEATED_START;
+  - Send device address + read mode
+  - for (i = 0; i < NUM_SAMPLES_TO_READ; i++) {
+      Read FIFO_DATA;
+      Sead LED1[23:16];
+      READ FIFO_DATA;
+      Read FIFO_DATA;
+      Save LED1[15:8];
+      Read FIFO_DATA;
+      Save LED1[7:0];
+      Read FIFO_DATA;
+      Save LED2[23:16];
+      Read FIFO_DATA;
+      Save LED2[15:8];
+      Read FIFO_DATA;
+      Save LED2[7:0];
+      Read FIFO_DATA;
+    }
+  - STOP;
+  - START;
+  - Send device address + write mode
+  - Send address of FIFO_RD_PTR
+  - Write FIFO_RD_PTR;
+  - STOP;
+
+This is the most confusing piece of code every lol. Turns out that when selecting a slave as the I2C master, you can use the 8th bit to signal whether you are reading 
+from or writing to the slave. In our case the address is 7 bits and the last bit is either 0 for write or 1 for read. The addressing scheme follows a start condition, 
+which is when SDA gets pulled to low (normally high state) and SCL is high. When SDA transitions to high from low on a high SCL, the stop condition is issued. After 
+receiving its slave id, the sensor issues an ACK by pulling SDA low for one clock cycle (standard I2C procedure). When in write mode, during the 9th clock pulse, the 
+sensor pulls down SDA to signal successful reception of the data.
+"The master pulls down SDA
+during the 9th clock cycle to acknowledge receipt of data
+when the MAX30102 is in read mode. An acknowledge
+is sent by the master after each read byte to allow data
+transfer to continue. A not-acknowledge is sent when the
+master reads the final byte of data from the MAX30102,
+followed by a STOP condition." basically master pulls SDA high again == NACK
+
+Generally, I feel like I learned a lot by reading the datasheet for one of the central parts of this design. I understand the concept of pull-up resistors now as well. 
+This will help me make decisions when drawing the PCBs on the schematic. For example, I now know that I can plug VLED+ to both terminals on the chip and through 
+firmware loaded onto my microcontroller decide which LED gets to draw current at all. The block diagrams were confusing, they seemed to suggest that only 1 VLED port 
+was used, but the schematic or footprints indicated 2 ports.
+
+Tomorrow I will read the datasheet for the MCU and attempt to wire up both together to see where it leads me (what mistakes I make, what I don't understand).
+
+It would be really nice to get to understand more precisely what the whole system will behave like, and then writing software for it will be super interesting.
