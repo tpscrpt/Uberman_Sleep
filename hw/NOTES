@@ -236,3 +236,28 @@ was used, but the schematic or footprints indicated 2 ports.
 Tomorrow I will read the datasheet for the MCU and attempt to wire up both together to see where it leads me (what mistakes I make, what I don't understand).
 
 It would be really nice to get to understand more precisely what the whole system will behave like, and then writing software for it will be super interesting.
+
+
+======================================
+
+UPDATE: We are back with the single PCB design. For a number of reasons, a multi-pcb layout didn't sound fun to design and implement.
+
+I have more carefully chosen the pieces in this revision: 
+ - MAX32650 96 WLP Low-power MCU w/ FPU 32bit 3M FLASH 1M RAM (https://www.maximintegrated.com/en/products/microcontrollers/MAX32650.html)
+ - Vibrator motor (https://www.digikey.ca/en/products/detail/seeed-technology-co-ltd/316040001/5487672)
+# I want a symbol, footprint and 3D model for this damn piece - 4 switches (https://www.digikey.ca/product-detail/en/grayhill-inc/87FC3-201/GH7750-ND/2680886)
+ - Li rechargeable battery (https://www.alibaba.com/product-detail/Rechargeable-3-7v-303040-300mah-lipo_62318443365.html)
+ - Micro-usb port (https://www.digikey.com/products/en?keywords=WM17141CT-ND) - dk symbols and footprints
+ - Power-management Unit (https://www.digikey.ca/product-detail/en/maxim-integrated/MAX20335AEWX/MAX20335AEWX-ND/9522072)
+ - HR sensor chip (https://www.digikey.ca/product-detail/en/maxim-integrated/MAX30102EFD/MAX30102EFD-ND/6166869)
+ - SDC mount (https://www.digikey.ca/en/products/detail/3m/2908-05WB-MG/1242497)
+ - Various pin headers for debugging
+
+I decided to go with the -35 variant of the PMIC/PMU because it has less stuff to deal with than the -45 version. Same goes for the -0 version of the MCU instead of the 
+originally envisioned -2 version which has 48 more pins. I don't have a lot of IO requirements for the device, only I2C with the sensor, PMU control, USB data, SDHC and 
+SWD/JTAG.
+
+I have also learned how to do hierarcical sheets in KiCAD, which makes my shit much neater. Implemented my first pull-up resistor in-schematic (I think). FULLY wired 
+the HR sensor with its appropriate power inputs (1.8V main w/ 3.3V LED power) and data pins (INT*, SDA, SCL -- thought not sure if INT* is output or bi).
+
+Saving progress for now.

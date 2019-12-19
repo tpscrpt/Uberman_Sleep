@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name MAX30102EFD)(type Legacy)(uri /home/jeremi/Documents/Development/Uberman_Sleep/hw/components/MAX30102EFD/MAX30102EFD.lib)(options "")(descr ""))
+  (lib (name MAX32650GWP)(type Legacy)(uri /home/jeremi/Documents/Development/Uberman_Sleep/hw/components/MAX32650GWP/MAX32650GWP.lib)(options "")(descr ""))
+)

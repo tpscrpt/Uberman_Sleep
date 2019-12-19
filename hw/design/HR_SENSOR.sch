@@ -1,0 +1,230 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 5
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L Device:C_Small C?
+U 1 1 5E0DE8A6
+P 4300 4650
+AR Path="/5E0DE8A6" Ref="C?"  Part="1" 
+AR Path="/5E0A3409/5E0DE8A6" Ref="C?"  Part="1" 
+F 0 "C?" H 4392 4696 50  0000 L CNN
+F 1 "4.7uF" H 4392 4605 50  0000 L CNN
+F 2 "" H 4300 4650 50  0001 C CNN
+F 3 "~" H 4300 4650 50  0001 C CNN
+	1    4300 4650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4700 4550 4700 5000
+Connection ~ 4700 4550
+Text GLabel 4700 5000 3    50   Input ~ 0
+HR1V8
+Wire Wire Line
+	4550 2900 4550 3800
+Connection ~ 4550 2900
+Wire Wire Line
+	4550 2900 5050 2900
+Wire Wire Line
+	4700 4400 4700 4550
+Wire Wire Line
+	4950 4400 4700 4400
+$Comp
+L power:GND #PWR?
+U 1 1 5E0DE8B4
+P 6950 5050
+AR Path="/5E0DE8B4" Ref="#PWR?"  Part="1" 
+AR Path="/5E0A3409/5E0DE8B4" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 6950 4800 50  0001 C CNN
+F 1 "GND" H 6955 4877 50  0000 C CNN
+F 2 "" H 6950 5050 50  0001 C CNN
+F 3 "" H 6950 5050 50  0001 C CNN
+	1    6950 5050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6950 4800 6950 5050
+Connection ~ 6950 4800
+Wire Wire Line
+	6750 4800 6950 4800
+Wire Wire Line
+	6950 4700 6950 4800
+Wire Wire Line
+	6750 4700 6950 4700
+Text GLabel 4550 2200 1    50   Input ~ 0
+VDDIO
+Wire Wire Line
+	4550 2400 4550 2200
+$Comp
+L Device:R_US R?
+U 1 1 5E0DE8C1
+P 4550 2550
+AR Path="/5E0DE8C1" Ref="R?"  Part="1" 
+AR Path="/5E0A3409/5E0DE8C1" Ref="R?"  Part="1" 
+F 0 "R?" H 4618 2596 50  0000 L CNN
+F 1 "4.7K" H 4618 2505 50  0000 L CNN
+F 2 "" V 4590 2540 50  0001 C CNN
+F 3 "~" H 4550 2550 50  0001 C CNN
+	1    4550 2550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4550 2700 4550 2900
+Wire Wire Line
+	4400 4100 4950 4100
+Wire Wire Line
+	4400 4100 4400 3350
+Wire Wire Line
+	4550 3800 4950 3800
+Wire Wire Line
+	4700 3600 4700 3350
+Wire Wire Line
+	4950 3600 4700 3600
+$Comp
+L MAX30102EFD:MAX30102EFD+ U?
+U 1 1 5E0DE8D0
+P 4950 3600
+AR Path="/5E0DE8D0" Ref="U?"  Part="1" 
+AR Path="/5E0A3409/5E0DE8D0" Ref="U?"  Part="1" 
+F 0 "U?" H 5850 3987 60  0000 C CNN
+F 1 "MAX30102EFD+" H 5850 3881 60  0000 C CNN
+F 2 "21-0880B" H 5850 3840 60  0001 C CNN
+F 3 "" H 4950 3600 60  0000 C CNN
+	1    4950 3600
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:C_Small C?
+U 1 1 5E0DE8D6
+P 3800 4650
+AR Path="/5E0DE8D6" Ref="C?"  Part="1" 
+AR Path="/5E0A3409/5E0DE8D6" Ref="C?"  Part="1" 
+F 0 "C?" H 3892 4696 50  0000 L CNN
+F 1 "0.1uF" H 3892 4605 50  0000 L CNN
+F 2 "" H 3800 4650 50  0001 C CNN
+F 3 "~" H 3800 4650 50  0001 C CNN
+	1    3800 4650
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3800 4550 4300 4550
+Connection ~ 4300 4550
+Wire Wire Line
+	4300 4550 4700 4550
+$Comp
+L Device:C_Small C?
+U 1 1 5E0DE8DF
+P 7300 3550
+AR Path="/5E0DE8DF" Ref="C?"  Part="1" 
+AR Path="/5E0A3409/5E0DE8DF" Ref="C?"  Part="1" 
+F 0 "C?" H 7208 3504 50  0000 R CNN
+F 1 "10uF" H 7208 3595 50  0000 R CNN
+F 2 "" H 7300 3550 50  0001 C CNN
+F 3 "~" H 7300 3550 50  0001 C CNN
+	1    7300 3550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7000 3650 7000 3200
+Connection ~ 7000 3650
+Text GLabel 7000 3200 1    50   Input ~ 0
+HR3V3
+Wire Wire Line
+	7000 3800 7000 3650
+Wire Wire Line
+	6750 3800 7000 3800
+$Comp
+L Device:C_Small C?
+U 1 1 5E0DE8EA
+P 7900 3550
+AR Path="/5E0DE8EA" Ref="C?"  Part="1" 
+AR Path="/5E0A3409/5E0DE8EA" Ref="C?"  Part="1" 
+F 0 "C?" H 7992 3596 50  0000 L CNN
+F 1 "0.1uF" H 7992 3505 50  0000 L CNN
+F 2 "" H 7900 3550 50  0001 C CNN
+F 3 "~" H 7900 3550 50  0001 C CNN
+	1    7900 3550
+	-1   0    0    1   
+$EndComp
+Wire Wire Line
+	7000 3800 7000 3900
+Wire Wire Line
+	7000 3900 6750 3900
+Connection ~ 7000 3800
+Connection ~ 7300 3650
+Wire Wire Line
+	7300 3650 7000 3650
+Wire Wire Line
+	7300 3650 7900 3650
+$Comp
+L power:GND #PWR?
+U 1 1 5E0DE8F6
+P 4300 4750
+AR Path="/5E0DE8F6" Ref="#PWR?"  Part="1" 
+AR Path="/5E0A3409/5E0DE8F6" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 4300 4500 50  0001 C CNN
+F 1 "GND" H 4305 4577 50  0000 C CNN
+F 2 "" H 4300 4750 50  0001 C CNN
+F 3 "" H 4300 4750 50  0001 C CNN
+	1    4300 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E0DE8FC
+P 3800 4750
+AR Path="/5E0DE8FC" Ref="#PWR?"  Part="1" 
+AR Path="/5E0A3409/5E0DE8FC" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 3800 4500 50  0001 C CNN
+F 1 "GND" H 3805 4577 50  0000 C CNN
+F 2 "" H 3800 4750 50  0001 C CNN
+F 3 "" H 3800 4750 50  0001 C CNN
+	1    3800 4750
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E0DE902
+P 7300 3450
+AR Path="/5E0DE902" Ref="#PWR?"  Part="1" 
+AR Path="/5E0A3409/5E0DE902" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 7300 3200 50  0001 C CNN
+F 1 "GND" H 7305 3277 50  0000 C CNN
+F 2 "" H 7300 3450 50  0001 C CNN
+F 3 "" H 7300 3450 50  0001 C CNN
+	1    7300 3450
+	-1   0    0    1   
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 5E0DE908
+P 7900 3450
+AR Path="/5E0DE908" Ref="#PWR?"  Part="1" 
+AR Path="/5E0A3409/5E0DE908" Ref="#PWR?"  Part="1" 
+F 0 "#PWR?" H 7900 3200 50  0001 C CNN
+F 1 "GND" H 7905 3277 50  0000 C CNN
+F 2 "" H 7900 3450 50  0001 C CNN
+F 3 "" H 7900 3450 50  0001 C CNN
+	1    7900 3450
+	-1   0    0    1   
+$EndComp
+Text Notes 4850 2800 0    50   ~ 0
+Verify that 32650 GPIO interrupt is active-low
+Text HLabel 4400 3350 1    50   BiDi ~ 0
+HRSDA
+Text HLabel 4700 3350 1    50   Input ~ 0
+HRSCL
+Text HLabel 5050 2900 2    50   Output ~ 0
+HRINT
+$EndSCHEMATC
