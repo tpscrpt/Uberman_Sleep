@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 2 5
+Sheet 2 6
 Title ""
 Date ""
 Rev ""
@@ -222,9 +222,9 @@ $EndComp
 Text Notes 4850 2800 0    50   ~ 0
 Verify that 32650 GPIO interrupt is active-low
 Text HLabel 4400 3350 1    50   BiDi ~ 0
-HRSDA
+HR_SDA
 Text HLabel 4700 3350 1    50   Input ~ 0
-HRSCL
+HR_SCL
 Text HLabel 5050 2900 2    50   Output ~ 0
-HRINT
+HR_INT
 $EndSCHEMATC

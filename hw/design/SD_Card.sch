@@ -1,0 +1,85 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 5 6
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Text HLabel 7100 2400 2    50   BiDi ~ 0
+SD_DAT1
+Text HLabel 7100 2300 2    50   BiDi ~ 0
+SD_DAT0
+Text HLabel 7100 2500 2    50   BiDi ~ 0
+SD_DAT2
+Text HLabel 7100 2600 2    50   BiDi ~ 0
+SD_DAT3
+Wire Wire Line
+	6450 3000 6650 3000
+Text HLabel 7100 2100 2    50   Input ~ 0
+SD_CMD
+Text HLabel 7100 2200 2    50   Input ~ 0
+SD_CLK
+Wire Wire Line
+	6450 1900 7600 1900
+$Comp
+L 503398-1892:503398-1892 J?
+U 1 1 5E18402B
+P 5750 2400
+F 0 "J?" H 5857 3167 50  0000 C CNN
+F 1 "503398-1892" H 5857 3076 50  0000 C CNN
+F 2 "MOLEX_503398-1892" H 5750 2400 50  0001 L BNN
+F 3 "molex" H 5750 2400 50  0001 L BNN
+F 4 "0" H 5750 2400 50  0001 L BNN "Field4"
+F 5 "MANUFACTURER RECOMMENDATIONS" H 5750 2400 50  0001 L BNN "Field5"
+	1    5750 2400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6450 2100 7100 2100
+Wire Wire Line
+	6450 2200 7100 2200
+Wire Wire Line
+	6450 2300 7100 2300
+Wire Wire Line
+	6450 2500 7100 2500
+Wire Wire Line
+	6450 2600 7100 2600
+Wire Wire Line
+	6450 2400 7100 2400
+$Comp
+L power:GND #PWR?
+U 1 1 5E19491B
+P 7550 3000
+F 0 "#PWR?" H 7550 2750 50  0001 C CNN
+F 1 "GND" V 7555 2872 50  0000 R CNN
+F 2 "" H 7550 3000 50  0001 C CNN
+F 3 "" H 7550 3000 50  0001 C CNN
+	1    7550 3000
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	6450 2900 6650 2900
+Wire Wire Line
+	6650 2900 6650 3000
+Connection ~ 6650 3000
+Wire Wire Line
+	6650 3000 7550 3000
+Wire Wire Line
+	6450 2700 6750 2700
+Wire Wire Line
+	6750 2700 6750 2800
+Wire Wire Line
+	6750 2800 7100 2800
+Text HLabel 7100 2800 2    50   Output ~ 0
+SD_SW
+Text GLabel 7600 1900 2    50   Input ~ 0
+SD3V3
+$EndSCHEMATC

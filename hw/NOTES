@@ -250,7 +250,7 @@ I have more carefully chosen the pieces in this revision:
  - Micro-usb port (https://www.digikey.com/products/en?keywords=WM17141CT-ND) - dk symbols and footprints
  - Power-management Unit (https://www.digikey.ca/product-detail/en/maxim-integrated/MAX20335AEWX/MAX20335AEWX-ND/9522072)
  - HR sensor chip (https://www.digikey.ca/product-detail/en/maxim-integrated/MAX30102EFD/MAX30102EFD-ND/6166869)
- - SDC mount (https://www.digikey.ca/en/products/detail/3m/2908-05WB-MG/1242497)
+ - SDC mount (https://www.digikey.ca/product-detail/en/jae-electronics/ST11S008V4HR2000/670-2695-6-ND/4175734)
  - Various pin headers for debugging
 
 I decided to go with the -35 variant of the PMIC/PMU because it has less stuff to deal with than the -45 version. Same goes for the -0 version of the MCU instead of the 
@@ -261,3 +261,4 @@ I have also learned how to do hierarcical sheets in KiCAD, which makes my shit m
 the HR sensor with its appropriate power inputs (1.8V main w/ 3.3V LED power) and data pins (INT*, SDA, SCL -- thought not sure if INT* is output or bi).
 
 Saving progress for now.
+

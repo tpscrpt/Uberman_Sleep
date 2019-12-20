@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 3 5
+Sheet 3 6
 Title ""
 Date ""
 Rev ""
@@ -39,9 +39,37 @@ Wire Wire Line
 Wire Wire Line
 	6800 1500 6800 1300
 Text HLabel 6800 1300 1    50   Input ~ 0
-HRINT
+HR_INT_GPIO
 Text HLabel 6900 1300 1    50   BiDi ~ 0
-SDA_I2C
+I2C1_SDA
 Text HLabel 7000 1300 1    50   Output ~ 0
-SCL_I2C
+I2C1_SCL
+Wire Wire Line
+	4500 3100 4800 3100
+Wire Wire Line
+	4500 3200 4800 3200
+Wire Wire Line
+	4800 5100 4500 5100
+Wire Wire Line
+	4800 5400 4500 5400
+Wire Wire Line
+	4800 5500 4500 5500
+Wire Wire Line
+	4800 5600 4500 5600
+Wire Wire Line
+	4800 5200 4500 5200
+Text HLabel 4500 5200 0    50   Input ~ 0
+SD_SW_GPIO
+Text HLabel 4500 5400 0    50   BiDi ~ 0
+SDHC_DAT0
+Text HLabel 4500 5500 0    50   Output ~ 0
+SDHC_CLK
+Text HLabel 4500 5600 0    50   BiDi ~ 0
+SDHC_DAT1
+Text HLabel 4500 5100 0    50   BiDi ~ 0
+SDHC_DAT3
+Text HLabel 4500 3100 0    50   Output ~ 0
+SDHC_CMD
+Text HLabel 4500 3200 0    50   BiDi ~ 0
+SDHC_DAT2
 $EndSCHEMATC
