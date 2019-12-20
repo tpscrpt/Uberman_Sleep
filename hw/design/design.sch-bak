@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 6
+Sheet 1 7
 Title ""
 Date ""
 Rev ""
@@ -29,13 +29,13 @@ Wire Wire Line
 Wire Wire Line
 	2650 1600 4100 1600
 $Sheet
-S 5500 1300 900  1450
+S 8050 1475 900  1450
 U 5E15CBF8
 F0 "MCU Power" 50
 F1 "MCU_V.sch" 50
 $EndSheet
 $Sheet
-S 6800 1300 700  750 
+S 9350 1475 700  750 
 U 5E17C70B
 F0 "MCU Peripherals" 50
 F1 "MCU_Peripherals.sch" 50
@@ -81,4 +81,12 @@ Wire Wire Line
 	3375 3375 4100 3375
 Wire Wire Line
 	3375 3450 4100 3450
+Wire Wire Line
+	3375 3575 4100 3575
+$Sheet
+S 6150 1325 500  325 
+U 5E1BF042
+F0 "Micro USB" 50
+F1 "uUSB.sch" 50
+$EndSheet
 $EndSCHEMATC

@@ -1,0 +1,9 @@
+ - MAX32650 96 WLP Low-power MCU w/ FPU 32bit 3M FLASH 1M RAM (https://www.maximintegrated.com/en/products/microcontrollers/MAX32650.html)
+ - Vibrator motor (https://www.digikey.ca/en/products/detail/seeed-technology-co-ltd/316040001/5487672)
+ - 4 switches (https://www.digikey.ca/product-detail/en/grayhill-inc/87FC3-201/GH7750-ND/2680886)
+ - Li rechargeable battery (https://www.alibaba.com/product-detail/Rechargeable-3-7v-303040-300mah-lipo_62318443365.html)
+ - Micro-usb port (https://www.digikey.com/products/en?keywords=WM17141CT-ND) - dk symbols and footprints
+ - Power-management Unit (https://www.digikey.ca/product-detail/en/maxim-integrated/MAX20335AEWX/MAX20335AEWX-ND/9522072)
+ - HR sensor chip (https://www.digikey.ca/product-detail/en/maxim-integrated/MAX30102EFD/MAX30102EFD-ND/6166869)
+ - SDC mount (https://www.digikey.ca/product-detail/en/jae-electronics/ST11S008V4HR2000/670-2695-6-ND/4175734)
+ - Various pin headers for debugging
