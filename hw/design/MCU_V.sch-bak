@@ -3,7 +3,7 @@ EELAYER 30 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 4 7
+Sheet 3 7
 Title ""
 Date ""
 Rev ""
@@ -26,4 +26,8 @@ F 3 "" H 4825 2650 60  0000 C CNN
 	3    4825 2650
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	4825 3650 4200 3650
+Text HLabel 4200 3650 0    50   Output ~ 0
+VDDIO1
 $EndSCHEMATC

@@ -33,4 +33,45 @@ F 12 "Active" H 5950 4750 60  0001 L CNN "Status"
 	1    5750 3550
 	1    0    0    -1  
 $EndComp
+Wire Wire Line
+	5650 4150 5650 4200
+$Comp
+L power:GND #PWR?
+U 1 1 5DFD685B
+P 5650 4400
+F 0 "#PWR?" H 5650 4150 50  0001 C CNN
+F 1 "GND" H 5655 4227 50  0000 C CNN
+F 2 "" H 5650 4400 50  0001 C CNN
+F 3 "" H 5650 4400 50  0001 C CNN
+	1    5650 4400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6050 3350 6350 3350
+Wire Wire Line
+	6350 3350 6350 3000
+Wire Wire Line
+	6050 3450 6500 3450
+Wire Wire Line
+	6050 3550 6500 3550
+Wire Wire Line
+	6050 3750 6050 4200
+Wire Wire Line
+	6050 4200 5650 4200
+Connection ~ 5650 4200
+Wire Wire Line
+	5650 4200 5650 4400
+Wire Wire Line
+	6050 3650 6150 3650
+Wire Wire Line
+	6150 3650 6150 4200
+Wire Wire Line
+	6150 4200 6050 4200
+Connection ~ 6050 4200
+Text HLabel 6500 3450 2    50   BiDi ~ 0
+D-
+Text HLabel 6500 3550 2    50   BiDi ~ 0
+D+
+Text HLabel 6350 3000 1    50   Output ~ 0
+VCC
 $EndSCHEMATC

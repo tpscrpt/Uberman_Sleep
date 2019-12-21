@@ -29,8 +29,6 @@ $EndComp
 Wire Wire Line
 	4700 4550 4700 5000
 Connection ~ 4700 4550
-Text GLabel 4700 5000 3    50   Input ~ 0
-HR1V8
 Wire Wire Line
 	4550 2900 4550 3800
 Connection ~ 4550 2900
@@ -62,8 +60,6 @@ Wire Wire Line
 	6950 4700 6950 4800
 Wire Wire Line
 	6750 4700 6950 4700
-Text GLabel 4550 2200 1    50   Input ~ 0
-VDDIO
 Wire Wire Line
 	4550 2400 4550 2200
 $Comp
@@ -138,8 +134,6 @@ $EndComp
 Wire Wire Line
 	7000 3650 7000 3200
 Connection ~ 7000 3650
-Text GLabel 7000 3200 1    50   Input ~ 0
-HR3V3
 Wire Wire Line
 	7000 3800 7000 3650
 Wire Wire Line
@@ -227,4 +221,10 @@ Text HLabel 4700 3350 1    50   Input ~ 0
 HR_SCL
 Text HLabel 5050 2900 2    50   Output ~ 0
 HR_INT
+Text HLabel 4550 2200 1    50   Input ~ 0
+VDDIO
+Text HLabel 7000 3200 1    50   Input ~ 0
+HR_3V3
+Text HLabel 4700 5000 3    50   Input ~ 0
+HR_1V8
 $EndSCHEMATC
