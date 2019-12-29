@@ -20,7 +20,7 @@ def figures_leave_one_out_sleep_wake_performance():
                                                                           hidden_layer_sizes=(15, 15, 15),
                                                                           max_iter=1000, alpha=0.01, solver='lbfgs'))
 
-    feature_sets = [[FeatureType.count, FeatureType.heart_rate, FeatureType.circadian_model]]
+    feature_sets = [[FeatureType.count, FeatureType.heart_rate]]#FeatureType.circadian_model]
 
     if Constants.VERBOSE:
         print('Running ' + attributed_classifier.name + '...')
@@ -162,8 +162,8 @@ def figures_compare_time_based_features():
     classifiers = utils.get_classifiers()
     feature_sets = [[FeatureType.count, FeatureType.heart_rate],
                     [FeatureType.count, FeatureType.heart_rate, FeatureType.time],
-                    [FeatureType.count, FeatureType.heart_rate, FeatureType.cosine],
-                    [FeatureType.count, FeatureType.heart_rate, FeatureType.circadian_model]]
+                    [FeatureType.count, FeatureType.heart_rate, FeatureType.cosine]]
+                    #[FeatureType.count, FeatureType.heart_rate, FeatureType.circadian_model]
 
     trial_count = 50
 

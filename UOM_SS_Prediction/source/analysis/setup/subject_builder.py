@@ -36,14 +36,14 @@ class SubjectBuilder(object):
         feature_count = ActivityCountFeatureService.load(subject_id)
         feature_hr = HeartRateFeatureService.load(subject_id)
         feature_time = TimeBasedFeatureService.load_time(subject_id)
-        feature_circadian = TimeBasedFeatureService.load_circadian_model(subject_id)
+        #feature_circadian = TimeBasedFeatureService.load_circadian_model(subject_id)
         feature_cosine = TimeBasedFeatureService.load_cosine(subject_id)
         labeled_sleep = PSGLabelService.load(subject_id)
 
         feature_dictionary = {FeatureType.count: feature_count,
                               FeatureType.heart_rate: feature_hr,
                               FeatureType.time: feature_time,
-                              FeatureType.circadian_model: feature_circadian,
+                              #FeatureType.circadian_model: feature_circadian,
                               FeatureType.cosine: feature_cosine}
 
         subject = Subject(subject_id=subject_id,
