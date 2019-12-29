@@ -1,4 +1,6 @@
-cloned from https://github.com/ojwalch/sleep_classifiers
+cloned from https://github.com/ojwalch/sleep_classifier/
+
+create and start a virtualenv under this folder and run `pip install -r requirements.txt`
 
 # sleep_classifiers
 
