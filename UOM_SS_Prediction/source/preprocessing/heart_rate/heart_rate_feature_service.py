@@ -62,11 +62,14 @@ class HeartRateFeatureService(object):
 
     @staticmethod
     def interpolate_and_normalize(heart_rate_collection):
-        timestamps = heart_rate_collection.timestamps.flatten()
-        heart_rate_values = heart_rate_collection.values.flatten()
-        interpolated_timestamps = np.arange(np.amin(timestamps),
+        timestamps = heart_rate_collection.timestamps.flatten() # remove empty dimensions
+        heart_rate_values = heart_rate_collection.values.flatten() # remove empty dimensions
+        interpolated_timestamps = np.arange(np.amin(timestamps), # create a timestamp at every second
                                             np.amax(timestamps), 1)
         interpolated_hr = np.interp(interpolated_timestamps, timestamps, heart_rate_values)
+        # for every member of interp_timestamps (every second in interval for cropped data),
+        # interpolate heart_rate_values based on timestamps
+        # Basically, linearly fill gaps of more than 1 second between each data point
 
         interpolated_hr = utils.convolve_with_dog(interpolated_hr, HeartRateFeatureService.WINDOW_SIZE)
 
