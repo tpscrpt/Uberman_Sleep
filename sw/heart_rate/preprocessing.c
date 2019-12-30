@@ -21,20 +21,21 @@
 
 */
 
-void convolve_with_dog(float* interpolated_hr, int length, int box_pts) {
+void convolve_with_dog(float interpolated_hr[], int length, int box_pts) {
   float accum = 0;
+  int i = 0;
 
-  for (int i = 0; i < length; i ++)
+  for (i = 0; i < length; i ++)
     accum += interpolated_hr[i];
 
   float mean = accum / length;
 
-  for (int i = 0; i < length; i ++) 
+  for (i = 0; i < length; i ++) 
     interpolated_hr[i] = interpolated_hr[i] / mean;
 
   float box[box_pts];
 
-  for (int i = 0; i < length; i ++)
+  for (i = 0; i < length; i ++)
     box[i] = 1 / box_pts;
 
   int mu1, mu2 = (int)(box_pts / 2);
@@ -42,11 +43,21 @@ void convolve_with_dog(float* interpolated_hr, int length, int box_pts) {
   int sigma2 = 600;
   float scalar = 0.75;
 
-  for (int i = 0; i < box_pts; i ++) {
+  for (i = 0; i < box_pts; i ++)
     box[i] =    exp(-1/2 * pow((i - mu1) / sigma1, 2)) - 
       (scalar * exp(-1/2 * pow((i - mu2) / sigma2, 2)));
   
+  float padded_hr[length + (2 * (box_pts / 2))];
+
+  for (i = 0; i < box_pts / 2; i ++) {
+    padded_hr[i] = interpolated_hr[(box_pts/2) - i];
+    padded_hr[length - 1 - i] = interpolated_hr[(length-1) - (box_pts/2) + i];
   }
+
+  for (i = 0; i < length; i ++)
+    padded_hr[box_pts/2 + i] = interpolated_hr[i];
+
+  //convolve lol
 }
 // I have no clue how to manage memory in c. At all. Everything is so confusing to me. I don't even know all the required syntax. Darnit.
 int main() {
