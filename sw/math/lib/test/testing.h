@@ -1,3 +1,6 @@
+#ifndef UBERMAN_MATH_TESTING_H_
+#define UBERMAN_MATH_TESTING_H_
+
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
@@ -13,7 +16,8 @@ void init_same_matrix(int n, int m, float** matrix, float val) {
       matrix[i][j] = val;
 }
 
-void print_matrix(int n, int m, float** matrix) {
+void print_matrix(int n, int m, float** matrix, char* msg) {
+  printf("%s", msg);
   for (int i = 0; i < n; i ++) {
     for (int j = 0; j < m; j ++)
       printf("%f ", matrix[i][j]);
@@ -23,3 +27,5 @@ void print_matrix(int n, int m, float** matrix) {
 
   printf("\n");
 }
+
+#endif
