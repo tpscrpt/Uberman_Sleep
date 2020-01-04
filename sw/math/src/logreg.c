@@ -1,25 +1,42 @@
 #include "../lib/matrix.h"
 #include "../lib/logreg.h"
 
+// TODO use int matrices for Y vectors to reduce FPU dependency
+// TODO implement learning rate decay
+
 float logreg(
-  float ** X,   // data
-  float ** Y,   // labels
-  float ** w,   // weights
-  float  * b,   // intercept
-  int      m,   // samples
-  int      nx,  // features
-  float    a    // learning rate
+  float ** X,   // data           (nx, m)
+  float ** Y,   // labels         (1, m)
+  float ** w,   // weights        (nx, 1)
+  float  * b,   // intercept      scalar
+  int      m,   // samples        scalar
+  int      nx,  // features       scalar
+  float    a    // learning rate  scalar
 ) {
-  float ** A  = activation(w, X, nx, m, *b);
-  float ** L  = loss(A[0], Y[0], m);
-  float tsoc  = cost(L[0], m);
 
-  float ** dw = derive_weights(X, A[0], Y[0], m, nx);
-  float    db = derive_intercept(A[0], Y[0], m);
+  // Forward Propagation
+  float ** A  = activation(w, X, nx, m, *b);  // (1, m) A = σ(wT * X + b)
+  float ** L  = loss(A[0], Y[0], m);          // (1, m) L = Ylog(a) - (1 - Y) * log(1 - A)
+  float tsoc  = cost(L[0], m);                // scalar cost = -1/m * sum(L)
 
+  // Backward propagation
+  float ** dw = derive_weights(X, A[0], Y[0], m, nx); // (nx, 1) derivative of each feature weight
+  float    db = derive_intercept(A[0], Y[0], m);      // scalar derivative of intercept/bias
+
+  // Gradient descent
   update(w, b, dw, db, nx, a);
 
   return tsoc;
+}
+
+float ** predict(float ** X, float ** w, float b, int nx, int m) {
+  float ** Y_prediction = matrix(1, m);
+  float ** A = activation(w, X, nx, m, b);
+
+  for (int i = 0; i < m; i ++)
+    Y_prediction[0][m] = A[0][m] <= 0.5 ? 0.0 : 1.0;
+
+  return Y_prediction;
 }
 
 float ** activation(float ** w, float ** X, int nx, int m, float b) {

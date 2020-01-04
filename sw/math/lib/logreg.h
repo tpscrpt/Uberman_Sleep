@@ -14,6 +14,14 @@ extern float logreg(
   float    a    // learning rate
 );
 
+extern float ** predict(
+  float ** X,
+  float ** w,
+  float    b,
+  int      nx,
+  int      m
+);
+
 /* logreg() executes the following calls, in order */
 extern float ** activation(float ** w, float ** X, int nx, int m, float b);
 extern float ** loss(float * A, float * Y, int m);
