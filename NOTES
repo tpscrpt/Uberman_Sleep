@@ -54,3 +54,45 @@ implement the networks which people have tested on similar or the same
 data and develop a better intuition for this problem over time.
 
 Wish me luck.
+
+
+===============
+
+Alrighty. Developing System Code for a MCU you have never owned a board for is not the easiest.
+
+The best solution I've found goes as follows:
+ - Develop application code and test on host machine
+ - Load hello_world sample on Eclipse MCU with STM32F4DISCOVERY board emulation
+ - Remove hello_world code and insert application code
+ - Run simulations, debug
+ - Evaluate resource necessities of application code
+ - Get STM34F4DISCOVERY board
+ - Run and debug basic application code on eval board
+ - Order peripherals from digikey (vibmot, piezo, sensors)
+ - Practice tickling the eval board's jimmies to get a feel for 'em
+ - Receive the board and begin developing peripheral code
+ - Notice that it's really hard to manage interrupts at that scale
+ - Contemplate learning ins and outs of FreeRTOS
+ - Write more peripheral code and begin succeeding at data flow
+ - Make sure you've been wearing your aliexpress smartwatch for data
+ - Go back in the past and write an Android app to save watch's data
+ - Refine machine learning model with Android data
+ - Change application code, upgrade peripheral code
+ - Test data collection and execution of the watch's data to test memory
+ - Develop exotic features of the product
+ - Refine the schematic
+ - Simulate and fail multiple times cause you suck at electrical engineering
+ - Eventually think you're on the right path
+ - PCB conversion takes a lot of time, mainly because you're scared
+ - Eventually get the guts to order a custom PCB prototype, likely from China
+ - You actually have to sodder your components in place
+ - Verify that everything works with the prototype, just like eval board
+ - Probably won't, so keep debugging and ordering more
+ - Meanwhile you've been designing and enclosure for the product
+ - Develop a mechanical engineering testing pipeline
+ - Use the pipeline to test whether the enclosure does the job
+ - Refine the enclosure, add detail, artwork, customizations
+ - Put the best version of PCB prototype into the enclosure
+ - Test in real life
+ - Fail and debug a few more times
+ - Succeed
