@@ -22,12 +22,4 @@ extern float ** predict(
   int      m
 );
 
-/* logreg() executes the following calls, in order */
-extern float ** activation(float ** w, float ** X, int nx, int m, float b);
-extern float ** loss(float * A, float * Y, int m);
-extern float    cost(float * L, int m);
-extern float ** derive_weights(float ** X, float * A, float * Y, int m, int nx);
-extern float    derive_intercept(float * A, float * Y, int m);
-extern void     update(float ** w, float * b, float ** dw, float db, int nx, float a);
-
 #endif

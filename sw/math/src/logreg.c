@@ -1,6 +1,14 @@
 #include "../lib/matrix.h"
 #include "../lib/logreg.h"
 
+#include <stdio.h>
+static float ** activation(float ** w, float ** X, int nx, int m, float b);
+static float ** loss(float * A, float * Y, int m);
+static float    cost(float * L, int m);
+static float ** derive_weights(float ** X, float * A, float * Y, int m, int nx);
+static float    derive_intercept(float * A, float * Y, int m);
+static void     update(float ** w, float * b, float ** dw, float db, int nx, float a);
+
 // TODO use int matrices for Y vectors to reduce FPU dependency
 // TODO implement learning rate decay
 
@@ -16,7 +24,9 @@ float logreg(
 
   // Forward Propagation
   float ** A  = activation(w, X, nx, m, *b);  // (1, m) A = σ(wT * X + b)
+
   float ** L  = loss(A[0], Y[0], m);          // (1, m) L = Ylog(a) - (1 - Y) * log(1 - A)
+
   float tsoc  = cost(L[0], m);                // scalar cost = -1/m * sum(L)
 
   // Backward propagation
@@ -25,6 +35,10 @@ float logreg(
 
   // Gradient descent
   update(w, b, dw, db, nx, a);
+
+  clear(1, A);
+  clear(nx, dw);
+  clear(1, L);
 
   return tsoc;
 }
@@ -36,22 +50,23 @@ float ** predict(float ** X, float ** w, float b, int nx, int m) {
   for (int i = 0; i < m; i ++)
     Y_prediction[0][m] = A[0][m] <= 0.5 ? 0.0 : 1.0;
 
+  clear(1, A);
   return Y_prediction;
 }
 
-float ** activation(float ** w, float ** X, int nx, int m, float b) {
+static float ** activation(float ** w, float ** X, int nx, int m, float b) {
   float ** wT = transpose(nx, 1, w);
-
   float ** wT_X = product(1, nx, nx, m, wT, X); // (1, m) -- z
+  
   clear(1, wT);
 
   bump(1, m, wT_X, b);
   sigmoid(1, m, wT_X);
-  
+
   return wT_X;
 }
 
-float ** loss(float * A, float * Y, int m) {
+static float ** loss(float * A, float * Y, int m) {
   float ** L = matrix(1, m);
 
   for (int i = 0; i < m; i ++) {
@@ -64,7 +79,7 @@ float ** loss(float * A, float * Y, int m) {
   return L;
 }
 
-float cost(float * L, int m) {
+static float cost(float * L, int m) {
   float total_loss = 0;
 
   for (int i = 0; i < m; i ++)
@@ -73,7 +88,7 @@ float cost(float * L, int m) {
   return (-1.0 / m) * total_loss;
 }
 
-float ** derive_weights(float ** X, float * A, float * Y, int m, int nx) {
+static float ** derive_weights(float ** X, float * A, float * Y, int m, int nx) {
   float ** A_minus_Y = matrix(1, m); // (1, m) [0, 1, 0, 0, 1]
 
   for (int i = 0; i < m; i ++)
@@ -91,7 +106,7 @@ float ** derive_weights(float ** X, float * A, float * Y, int m, int nx) {
   return X_A_minus_Y_T;
 }
 
-float derive_intercept(float * A, float * Y, int m) {
+static float derive_intercept(float * A, float * Y, int m) {
   float sum = 0;
 
   for (int i = 0; i < m; i ++)
@@ -100,7 +115,7 @@ float derive_intercept(float * A, float * Y, int m) {
   return sum;
 }
 
-void update(float ** w, float * b, float ** dw, float db, int nx, float a) {
+static void update(float ** w, float * b, float ** dw, float db, int nx, float a) {
   for (int i = 0; i < nx; i ++)
     w[i][0] -= (a * dw[i][0]);
 
