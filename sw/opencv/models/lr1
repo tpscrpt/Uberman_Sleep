@@ -1,0 +1,26 @@
+%YAML:1.0
+---
+opencv_ml_lr:
+   format: 3
+   classifier: Logistic Regression Classifier
+   alpha: 1.0000000000000000e-03
+   iterations: 1000
+   norm: 1
+   train_method: 0
+   learnt_thetas: !!opencv-matrix
+      rows: 1
+      cols: 7
+      dt: f
+      data: [ -1.31384659e-04, -1.67027669e-04, 1.30452652e-04,
+          -5.84131885e-05, -1.56885471e-05, -3.24403231e-07,
+          1.01427850e-05 ]
+   n_labels: !!opencv-matrix
+      rows: 2
+      cols: 1
+      dt: i
+      data: [ 0, 1 ]
+   o_labels: !!opencv-matrix
+      rows: 2
+      cols: 1
+      dt: i
+      data: [ 0, 1 ]
