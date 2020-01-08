@@ -7,7 +7,7 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#include "../lib/csv.h"
+#include "csv.h"
 
 enum { NOMEM = -2 };          /* out of memory signal */
 

@@ -59,7 +59,7 @@ void convolve_with_dog(float interpolated_hr[], int length, int box_pts) {
 
   //convolve lol
 }
-// I have no clue how to manage memory in c. At all. Everything is so confusing to me. I don't even know all the required syntax. Darnit.
+
 int main() {
   return 0;
 }

@@ -1,5 +1,5 @@
-#include "../lib/matrix.h"
-#include "../lib/logreg.h"
+#include "matrix.h"
+#include "logreg.h"
 
 #include <stdio.h>
 static float ** activation(float ** w, float ** X, int nx, int m, float b);

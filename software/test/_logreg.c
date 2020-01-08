@@ -1,6 +1,6 @@
-#include "../lib/logreg.h"
-#include "../lib/matrix.h"
-#include "../lib/test/testing.h"
+#include "logreg.h"
+#include "matrix.h"
+#include "testing.h"
 
 static void test() {
   int m  = 5; // # of examples

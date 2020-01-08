@@ -1,4 +1,4 @@
-#include "../lib/matrix.h"
+#include "matrix.h"
 
 void sigmoid(int n, int m, float ** X) {
   for (int i = 0; i < n; i ++)

@@ -5,10 +5,10 @@
 #include <string.h>
 #include <errno.h>
 
-#include "../../lib/matrix.h"
-#include "../../lib/logreg.h"
-#include "../../lib/csv.h"
-#include "../../lib/test/testing.h"
+#include "matrix.h"
+#include "logreg.h"
+#include "csv.h"
+#include "testing.h"
 
 int main() {
   FILE * train = fopen("./test/titanic/output/train_cleaned.csv", "r");
