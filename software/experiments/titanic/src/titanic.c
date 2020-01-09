@@ -22,7 +22,6 @@ float ** forward_pass(float ** X, int features, int examples, float ** W, float 
 */
 
 int main () {
-  int testing = 1;
   // Source file for training data
   FILE * train = fopen("experiments/titanic/output/train_cleaned.csv", "r");
 
@@ -81,13 +80,15 @@ int main () {
     }
   }
 
+  fclose(train);
+
   for(e = 0; e < epochs; e ++) {
     // compute predictions
-    float ** A = forward_pass(train_X, features, train_examples, W, b);
+    float ** train_A = forward_pass(train_X, features, train_examples, W, b);
 
     // compute derivatives for gradient descent
-    float cost = compute_cost(1, train_examples, A, train_Y);
-    float ** dZ = compute_dZ(1, train_examples, A, train_Y);
+    float cost = compute_cost(1, train_examples, train_A, train_Y);
+    float ** dZ = compute_dZ(1, train_examples, train_A, train_Y);
     float ** dW = compute_dW(train_X, features, train_examples, dZ, 1, train_examples);
     float db = compute_db(1, train_examples, dZ);
 
@@ -95,7 +96,7 @@ int main () {
     update_W(W, dW, features, learning_rate);
     update_b(&b, db, learning_rate);
 
-    clear(1, A);
+    clear(1, train_A);
     clear(1, dZ);
     clear(1, dW);
   }
@@ -103,25 +104,60 @@ int main () {
   print_matrix(1, features, W, "\nW: ");
   printf("b: %f\n\n", b);
 
+  clear(features, train_X);
+  clear(1, train_Y);
+
   // ---- run predictions on dev set ----------------
-  float ** A = forward_pass(dev_X, features, dev_examples, W, b);
+  float ** dev_A = forward_pass(dev_X, features, dev_examples, W, b);
   float accurate = 0.0;
 
   for (i = 0; i < dev_examples; i ++)
-    if (A[0][i] > 0.5 && dev_Y[0][i] > 0.5 ||
-        A[0][i] <= 0.5 && dev_Y[0][i] < 0.5) accurate++;
+    if (dev_A[0][i] > 0.5 && dev_Y[0][i] > 0.5 ||
+        dev_A[0][i] <= 0.5 && dev_Y[0][i] < 0.5) accurate++;
 
   accurate /= (float) dev_examples;
 
   printf("Accuracy on dev set: %f\n\n", accurate);
-
-  clear(1, A);
-
-  // free remaining matrices
-  clear(features, train_X);
-  clear(1, train_Y);
+  
   clear(features, dev_X);
   clear(1, dev_Y);
+  clear(1, dev_A);
+
+
+  // ---- run predictions on test set ----------------
+  FILE * test = fopen("experiments/titanic/output/test_cleaned.csv", "r");
+  FILE * submission = fopen("experiments/titanic/output/c_submission.csv", "w");
+
+  // Check whether we have data in the file
+  if (csvgetline(test) == NULL) {
+    return printf("Exiting due to bad file");
+  }
+
+  int test_examples = 331;
+
+  float ** test_X = matrix(features, test_examples);
+  float ** test_Y = matrix(1, test_examples);
+
+  for (i = 0; csvgetline(test) != NULL && i < test_examples; i ++) {
+    test_Y[0][i] = atoi(csvfield(0));             // extract id of passenger
+
+    for (j = 0; j < features; j ++)
+      test_X[j][i] = atof(csvfield(j+1));         // set each feature value for the given example
+  }
+
+  fclose(test);
+
+  float ** test_A = forward_pass(test_X, features, test_examples, W, b);
+
+  fprintf(submission, "PassengerId,Survived\n");
+
+  for (i = 0; i < test_examples; i ++)
+    fprintf(submission, "%d,%d\n", (int) test_Y[0][i], test_A[0][i] > 0.5);
+
+  clear(features, test_X);
+  clear(1, test_Y);
+  clear(1, test_A);
+  fclose(submission);
 }
 
 float ** forward_pass(float ** X, int features, int examples, float ** W, float b) {
