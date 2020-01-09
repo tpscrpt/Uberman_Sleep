@@ -7,8 +7,8 @@ _logreg: .obj/matrix.o .obj/logreg.o .obj/_logreg.o
 #_titanic: .obj/matrix.o .obj/logreg.o .obj/csv.o .obj/_titanic.o
 #	$(CC) $(CFLAGS) .obj/matrix.o .obj/logreg.o .obj/csv.o .obj/_titanic.o -o bin/_titanic
 
-titanic: .obj/matrix.o .obj/csv.o
-	$(CC) $(CFLAGS) .obj/matrix.o .obj/csv.o experiments/titanic/src/titanic.c -o .bin/titanic
+titanic: .obj/matrix.o .obj/csv.o .obj/logreg.o
+	$(CC) $(CFLAGS) .obj/matrix.o .obj/csv.o .obj/logreg.o experiments/titanic/src/titanic.c -o .bin/titanic
 
 _titanic:
 	$(CC) $(CFLAGS) src/matrix.c src/logreg.c src/csv.c experiments/titanic/_titanic.c -o .bin/_titanic

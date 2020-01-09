@@ -4,17 +4,7 @@
 #include "csv.h"
 #include "matrix.h"
 #include "testing.h"
-
-
-Matrix * forward_pass(Matrix * X, Matrix * W, float b);
-float compute_cost(Matrix * A, Matrix * Y);
-Matrix * compute_dZ(Matrix * A, Matrix * Y);
-Matrix * compute_dW(Matrix * X, Matrix * dZ);
-float compute_db(Matrix * dZ);
-
-void update_W(Matrix * W, Matrix * dW, float learning_rate);
-void update_b(float * b, float db, float learning_rate);
-
+#include "logreg.h"
 
 /*
     NOTE: I keep my W vectors transposed at all times in main
@@ -83,24 +73,8 @@ int main () {
 
   fclose(train);
 
-  for(e = 0; e < epochs; e ++) {
-    // compute predictions
-    Matrix * train_A = forward_pass(train_X, W, b);
-
-    // compute derivatives for gradient descent
-    float cost = compute_cost(train_A, train_Y);
-    Matrix * dZ = compute_dZ(train_A, train_Y);
-    Matrix * dW = compute_dW(train_X, dZ);
-    float db = compute_db(dZ);
-
-    // update parameters
-    update_W(W, dW, learning_rate);
-    update_b(&b, db, learning_rate);
-
-    clear(train_A);
-    clear(dZ);
-    clear(dW);
-  }
+  for(e = 0; e < epochs; e ++)
+    logreg(train_X, train_Y, W, &b, train_examples, features, learning_rate);
 
   print_matrix(W, "\nW: ");
   printf("b: %f\n\n", b);
@@ -162,71 +136,4 @@ int main () {
   clear(test_Y);
   clear(test_A);
   fclose(submission);
-}
-
-Matrix * forward_pass(Matrix * X, Matrix * W, float b) {
-  Matrix * WX = product(W, X);
-  bump(WX, b);
-  sigmoid(WX);
-
-  return WX;
-}
-
-float compute_cost(Matrix * A, Matrix * Y) {
-  float sum = 0.0;
-
-  for (int i = 0; i < A->m; i ++) {
-    float y = Y->d[0][i];
-    float a = A->d[0][i];
-
-    sum += (float) y * logf(a) + ((1 - y) * logf(1 - a));
-  }
-
-  return - (sum / (float) A->m);
-}
-
-Matrix * compute_dZ(Matrix * A, Matrix * Y) {
-  Matrix * dZ = matrix(A->n, A->m);
-
-  for (int i = 0; i < A->m; i ++) {
-    float y = Y->d[0][i];
-    float a = A->d[0][i];
-
-    dZ->d[0][i] = (float) a - y;
-  }
-
-  return dZ;
-}
-
-Matrix * compute_dW(Matrix * X, Matrix * dZ) {
-  Matrix * dZT = transpose(dZ);
-
-  Matrix * dW = product(X, dZT);
-  clear(dZT);
-
-  Matrix * dWT = transpose(dW);
-  clear(dW);
-
-  for (int i = 0; i < X->n; i ++)
-    dWT->d[0][i] /= (float) X->m;
-
-  return dWT;
-}
-
-
-float compute_db(Matrix * dZ) {
-  float sum = 0.0;
-
-  for (int i = 0; i < dZ->m; i ++)
-    sum += dZ->d[0][i];
-
-  return sum / (float) dZ->m;
-}
-void update_W(Matrix * W, Matrix * dW, float learning_rate) {
-  for (int i = 0; i < W->m; i ++)
-    W->d[0][i] -= (learning_rate * dW->d[0][i]);
-}
-
-void update_b(float * b, float db, float learning_rate) {
-  *b -= (learning_rate * db);
 }
