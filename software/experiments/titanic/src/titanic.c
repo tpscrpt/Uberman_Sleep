@@ -42,7 +42,7 @@ int main () {
   int features = csvnfield() - 1;
 
   // total number of examples in the training set
-  int examples = 20;
+  int examples = 714;
   // ratio of training examples allocated to the train set
   float ratio = 0.8;
 
@@ -110,7 +110,6 @@ int main () {
 
   // ---- run predictions on dev set ----------------
   Matrix * dev_A = forward_pass(dev_X, W, b);
-  print_matrix(dev_A, "dev_A: \n");
   float accurate = 0.0;
 
   for (i = 0; i < dev_examples; i ++)
@@ -166,7 +165,7 @@ int main () {
 }
 
 Matrix * forward_pass(Matrix * X, Matrix * W, float b) {
-  Matrix * WX = product(X, W);
+  Matrix * WX = product(W, X);
   bump(WX, b);
   sigmoid(WX);
 
