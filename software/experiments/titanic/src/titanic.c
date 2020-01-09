@@ -5,15 +5,16 @@
 #include "matrix.h"
 #include "testing.h"
 
-float compute_cost(int n, int m, float ** X, float ** Y);
-float ** compute_dZ(int n, int m, float ** X, float ** Y);
-float ** compute_dW(float ** X, int n, int m, float ** dZ, int p, int q);
-float compute_db(int n, int m, float ** dZ);
 
-void update_W(float ** W, float ** dW, int m, float learning_rate);
+Matrix * forward_pass(Matrix * X, Matrix * W, float b);
+float compute_cost(Matrix * A, Matrix * Y);
+Matrix * compute_dZ(Matrix * A, Matrix * Y);
+Matrix * compute_dW(Matrix * X, Matrix * dZ);
+float compute_db(Matrix * dZ);
+
+void update_W(Matrix * W, Matrix * dW, float learning_rate);
 void update_b(float * b, float db, float learning_rate);
 
-float ** forward_pass(float ** X, int features, int examples, float ** W, float b);
 
 /*
     NOTE: I keep my W vectors transposed at all times in main
@@ -41,7 +42,7 @@ int main () {
   int features = csvnfield() - 1;
 
   // total number of examples in the training set
-  int examples = 714;
+  int examples = 20;
   // ratio of training examples allocated to the train set
   float ratio = 0.8;
 
@@ -53,14 +54,14 @@ int main () {
     train_examples++;
 
   // initialize train and dev matrices (X = features, Y = label)
-  float ** train_X = matrix(features, train_examples);
-  float ** train_Y = matrix(1, train_examples);
-  float ** dev_X = matrix(features, dev_examples);
-  float ** dev_Y = matrix(1, dev_examples);   
+  Matrix * train_X = matrix(features, train_examples);
+  Matrix * train_Y = matrix(1, train_examples);
+  Matrix * dev_X = matrix(features, dev_examples);
+  Matrix * dev_Y = matrix(1, dev_examples);
 
   // initialize weight matrix (transposed, may be revised)
-  float ** W = matrix(1, features);
-    init_matrix_val(1, features, W, 0.0);
+  Matrix * W = matrix(1, features);
+    init_val(W, 0.0);
 
   // initialize bias scalar
   float b = 0.0;
@@ -69,14 +70,14 @@ int main () {
     int update_dev = i >= train_examples;               // start placing examples in dev_X and dev_Y
     int index = update_dev ? i - train_examples : i;    // shift down index when targeting dev set
 
-    float ** update_X = update_dev ? dev_X : train_X;   // set example matrix to append to as train or dev
-    float ** update_Y = update_dev ? dev_Y : train_Y;   // set label matrix to append to as train or dev
+    Matrix * update_X = update_dev ? dev_X : train_X;   // set example matrix to append to as train or dev
+    Matrix * update_Y = update_dev ? dev_Y : train_Y;   // set label matrix to append to as train or dev
 
     int survived = atoi(csvfield(0));                   // whether the label is 0 or 1 (dead or survived)
-    update_Y[0][index] = survived ? 1 : 0;              // set the label value for the given example
+    update_Y->d[0][index] = survived ? 1 : 0;           // set the label value for the given example
 
     for (j = 0; j < features; j ++) {
-      update_X[j][index] = atof(csvfield(j+1));         // set each feature value for the given example
+      update_X->d[j][index] = atof(csvfield(j+1));      // set each feature value for the given example
     }
   }
 
@@ -84,44 +85,45 @@ int main () {
 
   for(e = 0; e < epochs; e ++) {
     // compute predictions
-    float ** train_A = forward_pass(train_X, features, train_examples, W, b);
+    Matrix * train_A = forward_pass(train_X, W, b);
 
     // compute derivatives for gradient descent
-    float cost = compute_cost(1, train_examples, train_A, train_Y);
-    float ** dZ = compute_dZ(1, train_examples, train_A, train_Y);
-    float ** dW = compute_dW(train_X, features, train_examples, dZ, 1, train_examples);
-    float db = compute_db(1, train_examples, dZ);
+    float cost = compute_cost(train_A, train_Y);
+    Matrix * dZ = compute_dZ(train_A, train_Y);
+    Matrix * dW = compute_dW(train_X, dZ);
+    float db = compute_db(dZ);
 
     // update parameters
-    update_W(W, dW, features, learning_rate);
+    update_W(W, dW, learning_rate);
     update_b(&b, db, learning_rate);
 
-    clear(1, train_A);
-    clear(1, dZ);
-    clear(1, dW);
+    clear(train_A);
+    clear(dZ);
+    clear(dW);
   }
 
-  print_matrix(1, features, W, "\nW: ");
+  print_matrix(W, "\nW: ");
   printf("b: %f\n\n", b);
 
-  clear(features, train_X);
-  clear(1, train_Y);
+  clear(train_X);
+  clear(train_Y);
 
   // ---- run predictions on dev set ----------------
-  float ** dev_A = forward_pass(dev_X, features, dev_examples, W, b);
+  Matrix * dev_A = forward_pass(dev_X, W, b);
+  print_matrix(dev_A, "dev_A: \n");
   float accurate = 0.0;
 
   for (i = 0; i < dev_examples; i ++)
-    if (dev_A[0][i] > 0.5 && dev_Y[0][i] > 0.5 ||
-        dev_A[0][i] <= 0.5 && dev_Y[0][i] < 0.5) accurate++;
+    if (dev_A->d[0][i] > 0.5 && dev_Y->d[0][i] > 0.5 ||
+        dev_A->d[0][i] <= 0.5 && dev_Y->d[0][i] < 0.5) accurate++;
 
   accurate /= (float) dev_examples;
 
   printf("Accuracy on dev set: %f\n\n", accurate);
   
-  clear(features, dev_X);
-  clear(1, dev_Y);
-  clear(1, dev_A);
+  clear(dev_X);
+  clear(dev_Y);
+  clear(dev_A);
 
 
   // ---- run predictions on test set ----------------
@@ -135,99 +137,95 @@ int main () {
 
   int test_examples = 331;
 
-  float ** test_X = matrix(features, test_examples);
-  float ** test_Y = matrix(1, test_examples);
+  Matrix * test_X = matrix(features, test_examples);
+  Matrix * test_Y = matrix(1, test_examples);
 
   for (i = 0; csvgetline(test) != NULL && i < test_examples; i ++) {
-    test_Y[0][i] = atoi(csvfield(0));             // extract id of passenger
+    test_Y->d[0][i] = atoi(csvfield(0));             // extract id of passenger
 
     for (j = 0; j < features; j ++)
-      test_X[j][i] = atof(csvfield(j+1));         // set each feature value for the given example
+      test_X->d[j][i] = atof(csvfield(j+1));         // set each feature value for the given example
   }
 
   fclose(test);
 
   // get prediction vector
-  float ** test_A = forward_pass(test_X, features, test_examples, W, b);
+  Matrix * test_A = forward_pass(test_X, W, b);
 
   // csv header
   fprintf(submission, "PassengerId,Survived\n");
 
   // output the passenger's ID and whether we think they survived
   for (i = 0; i < test_examples; i ++)
-    fprintf(submission, "%d,%d\n", (int) test_Y[0][i], test_A[0][i] > 0.5);
+    fprintf(submission, "%d,%d\n", (int) test_Y->d[0][i], test_A->d[0][i] > 0.5);
 
-  clear(features, test_X);
-  clear(1, test_Y);
-  clear(1, test_A);
+  clear(test_X);
+  clear(test_Y);
+  clear(test_A);
   fclose(submission);
 }
 
-float ** forward_pass(float ** X, int features, int examples, float ** W, float b) {
-  // multiply input features by coefficients across all examples
-  float ** WX = product(1, features, features, examples, W, X);
-
-  bump(1, examples, WX, b);   // add bias to create the Z vector
-  sigmoid(1, examples, WX);   // element-wise sigmoid yields A vector (predictions)
+Matrix * forward_pass(Matrix * X, Matrix * W, float b) {
+  Matrix * WX = product(X, W);
+  bump(WX, b);
+  sigmoid(WX);
 
   return WX;
 }
 
-float compute_cost(int n, int m, float ** X, float ** Y) {
+float compute_cost(Matrix * A, Matrix * Y) {
   float sum = 0.0;
 
-  for (int i = 0; i < m; i ++) {
-    float y = Y[0][i];
-    float y_hat = X[0][i];
+  for (int i = 0; i < A->m; i ++) {
+    float y = Y->d[0][i];
+    float a = A->d[0][i];
 
-    sum += (float) y * logf(y_hat) + ((1 - y) * logf(1 - y_hat));
+    sum += (float) y * logf(a) + ((1 - y) * logf(1 - a));
   }
 
-  return - (sum / (float) m);
+  return - (sum / (float) A->m);
 }
 
-float ** compute_dZ(int n, int m, float ** X, float ** Y) {
-  float ** dZ = matrix(n, m);
-  
-  for (int i = 0; i < m; i ++) {
-    float y = Y[0][i];
-    float a = X[0][i];
+Matrix * compute_dZ(Matrix * A, Matrix * Y) {
+  Matrix * dZ = matrix(A->n, A->m);
 
-    dZ[0][i] = (float) a - y;
+  for (int i = 0; i < A->m; i ++) {
+    float y = Y->d[0][i];
+    float a = A->d[0][i];
+
+    dZ->d[0][i] = (float) a - y;
   }
 
   return dZ;
 }
 
-float ** compute_dW(float ** X, int n, int m, float ** dZ, int p, int q) {
-  // X = (features, train_examples)
-  // dZ = (1, train_examples)
-  // dZT = (train_examples, 1)
-  // dW = (features, 1)
-  // dWT = (1, features) -- same shape as transposed W
+Matrix * compute_dW(Matrix * X, Matrix * dZ) {
+  Matrix * dZT = transpose(dZ);
 
-  float ** dZT = transpose(p, q, dZ);
-  float ** dW = product(n, m, q, p, X, dZT);
-  float ** dWT = transpose(n, p, dW);
+  Matrix * dW = product(X, dZT);
+  clear(dZT);
 
-  for (int i = 0; i < n; i ++)
-    dWT[0][i] /= (float) m;
+  Matrix * dWT = transpose(dW);
+  clear(dW);
 
-  return dWT;  
+  for (int i = 0; i < X->n; i ++)
+    dWT->d[0][i] /= (float) X->m;
+
+  return dWT;
 }
 
-float compute_db(int n, int m, float ** dZ) {
+
+float compute_db(Matrix * dZ) {
   float sum = 0.0;
 
-  for (int i = 0; i < m; i ++)
-    sum += dZ[0][i];
+  for (int i = 0; i < dZ->m; i ++)
+    sum += dZ->d[0][i];
 
-  return sum / (float) m;
+  return sum / (float) dZ->m;
 }
-
-void update_W(float ** W, float ** dW, int m, float learning_rate) {
-  for (int i = 0; i < m; i ++)
-    W[0][i] -= (learning_rate * dW[0][i]);
+void update_W(Matrix * W, Matrix * dW, float learning_rate) {
+  for (int i = 0; i < W->m; i ++)
+    W->d[0][i] -= (learning_rate * dW->d[0][i]);
 }
 
 void update_b(float * b, float db, float learning_rate) {

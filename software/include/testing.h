@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include "matrix.h"
 
 void init_random_matrix(int n, int m, float** matrix) {
   for (int i = 0; i < n; i ++)
@@ -16,11 +17,13 @@ void init_same_matrix(int n, int m, float** matrix, float val) {
       matrix[i][j] = val;
 }
 
-void print_matrix(int n, int m, float** matrix, char* msg) {
+void print_matrix(Matrix * X, char* msg) {
   printf("%s", msg);
-  for (int i = 0; i < n; i ++) {
-    for (int j = 0; j < m; j ++)
-      printf("%f ", matrix[i][j]);
+  printf("(%d, %d)\n", X->n, X->m);
+  
+  for (int i = 0; i < X->n; i ++) {
+    for (int j = 0; j < X->m; j ++)
+      printf("%f ", X->d[i][j]);
 
     printf("\n");
   }

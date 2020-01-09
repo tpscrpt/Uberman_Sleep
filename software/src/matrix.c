@@ -1,62 +1,69 @@
 #include "matrix.h"
 
-void sigmoid(int n, int m, float ** X) {
-  for (int i = 0; i < n; i ++)
-    for (int j = 0; j < m; j ++)
-      X[i][j] = 1 / (1 + exp(-X[i][j]));
+void sigmoid(Matrix * X) {
+  for (int i = 0; i < X->n; i ++)
+    for (int j = 0; j < X->m; j ++)
+      X->d[i][j] = 1 / (1 + exp(-X->d[i][j]));
 }
 
-void bump(int n, int m, float ** X, float b) {
-  for (int i = 0; i < n; i ++)
-    for (int j = 0; j < m; j ++)
-      X[i][j] += b;
+void bump(Matrix * X, float b) {
+  for (int i = 0; i < X->n; i ++)
+    for (int j = 0; j < X->m; j ++)
+      X->d[i][j] += b;
 }
 
-void init_matrix_val(int n, int m, float ** X, float val) {
-  for (int i = 0; i < n; i ++)
-    for (int j = 0; j < m; j ++)
-      X[i][j] = val;
+Matrix * matrix(int n, int m) {
+  Matrix * mat = malloc(sizeof(struct Matrix));
+  mat->n = n;
+  mat->m = m;
+
+  mat->d = malloc(n * sizeof (*mat->d));
+
+  for (int i = 0; i < n; i++)
+    mat->d[i] = malloc(m * sizeof(*mat->d[i]));
+
+  return mat;
 }
 
-/* <https://github.com/gregdhill/lin-reg/blob/master/lreg.c> */
-
-float** matrix(int n, int m) {
-  float **X;
-  X = (float **) malloc(n * sizeof (*X));
-
-  for (int i=0; i<n; i++)
-    X[i] = (float *) malloc(m * sizeof(*X[i]));
-
-  return X;
+void clear(Matrix * X) {
+  for (int i = 0; i < X->n; i ++)
+    free(X->d[i]);
+  
+  free(X->d);
 }
 
-void clear(int n, float** X){
-  for (int i=0; i<n; i++)
-    free(X[i]);
-  free(X);
+void init_val(Matrix * X, float val) {
+  for (int i = 0; i < X->n; i ++)
+    for (int j = 0; j < X->m; j ++)
+      X->d[i][j] = val;
 }
 
-float** transpose(int n, int m, float** X) {
-  float** X_ = matrix(m,n);
+Matrix * transpose(Matrix * X) {
+  Matrix * X_ = matrix(X->m, X->n);
 
-  for (int i = 0; i < m; i++)
-    for (int j = 0; j < n; j++)
-      X_[i][j] = X[j][i];
+  for (int i = 0; i < X->m; i++)
+    for (int j = 0; j < X->n; j++)
+      X_->d[i][j] = X->d[j][i];
 
   return X_;
 }
 
-float** product(int n, int m, int p, int q, float** A, float** B) {
-  float** C = matrix(n,q);
+Matrix * product(Matrix * A, Matrix * B) {
+  int n = A->n;
+  int m = A->m;
+  int p = B->n;
+  int q = B->m;
+
+  Matrix * C = matrix(n, q);
 
   for (int i = 0; i < n; i++)
     for (int j = 0; j < q; j++)
-      C[i][j] = 0;
+      C->d[i][j] = 0;
 
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < q; j++) {
       for (int k = 0; k < p; k++) {
-        C[i][j] += A[i][k]*B[k][j];
+        C->d[i][j] += A->d[i][k] * B->d[k][j];
       }
     }
   }

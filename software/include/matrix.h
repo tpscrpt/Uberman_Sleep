@@ -4,15 +4,22 @@
 #include <stdlib.h>
 #include <math.h>
 
-extern void sigmoid(int n, int m, float ** X);
-extern void bump(int n, int m, float ** X, float b);
-extern void init_matrix_val(int n, int m, float ** X, float val);
+typedef struct Matrix {
+  int n, m;
+  float ** d;
+} Matrix;
 
-/* <https://github.com/gregdhill/lin-reg/blob/master/lreg.c> */
-extern float** matrix(int n, int m);
-extern void clear(int n, float** X);
-extern float** transpose(int n, int m, float** X);
-extern float** product(int n, int m, int p, int q, float** A, float** B);
-/* </https://github.com/gregdhill/lin-reg/blob/master/lreg.c> */
+extern Matrix * matrix(int n, int m);
+extern Matrix * transpose(Matrix * X);
+extern Matrix * product(Matrix * A, Matrix * B);
+
+extern void sigmoid(Matrix * X);
+extern void bump(Matrix * X, float b);
+extern void init_val(Matrix * X, float val);
+extern void clear(Matrix * X);
+
 
 #endif
+
+/* Sources: 
+    1. <https://github.com/gregdhill/lin-reg/blob/master/lreg.c> */
