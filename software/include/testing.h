@@ -24,8 +24,6 @@ void print_matrix(int n, int m, float** matrix, char* msg) {
 
     printf("\n");
   }
-
-  printf("\n");
 }
 
 #endif
