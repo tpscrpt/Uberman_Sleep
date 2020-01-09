@@ -147,10 +147,13 @@ int main () {
 
   fclose(test);
 
+  // get prediction vector
   float ** test_A = forward_pass(test_X, features, test_examples, W, b);
 
+  // csv header
   fprintf(submission, "PassengerId,Survived\n");
 
+  // output the passenger's ID and whether we think they survived
   for (i = 0; i < test_examples; i ++)
     fprintf(submission, "%d,%d\n", (int) test_Y[0][i], test_A[0][i] > 0.5);
 
