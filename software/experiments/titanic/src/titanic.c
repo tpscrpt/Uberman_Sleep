@@ -5,20 +5,21 @@
 #include "matrix.h"
 #include "testing.h"
 
-static int ** alloc_mati(int m, int n);
-static float ** alloc_matf(int m, int n);
-
-void cleari(int n, int** X);
-void clearf(int n, float** X);
-
 float compute_cost(int n, int m, float ** X, float ** Y);
-float ** compute_da(int n, int m, float ** X, float ** Y);
 float ** compute_dZ(int n, int m, float ** X, float ** Y);
 float ** compute_dW(float ** X, int n, int m, float ** dZ, int p, int q);
 float compute_db(int n, int m, float ** dZ);
 
 void update_W(float ** W, float ** dW, int m, float learning_rate);
 void update_b(float * b, float db, float learning_rate);
+
+float ** forward_pass(float ** X, int features, int examples, float ** W, float b);
+
+/*
+    NOTE: I keep my W vectors transposed at all times in main
+    because it feels like it may use less memory overall.
+    This is subject to change!
+*/
 
 int main () {
   int testing = 1;
@@ -30,7 +31,6 @@ int main () {
     return printf("Exiting due to bad file");
   }
 
-  // looping variables
   int i, j, e;
 
   // constants for the logistic regression
@@ -46,26 +46,22 @@ int main () {
   // ratio of training examples allocated to the train set
   float ratio = 0.8;
 
-  // number of examples to be allocated to the *train* set
   int train_examples = examples * ratio;
-  // number of examples to be allocated to the *dev* set
   int dev_examples = examples * (1 - ratio);
 
   // make sure we are allocating all of our examples
   if (dev_examples + train_examples < examples)
     train_examples++;
 
-  // initialize train matrices (X = features, Y = label)
-  float ** train_X = alloc_matf(features, train_examples);
-  float ** train_Y = alloc_matf(1, train_examples);
+  // initialize train and dev matrices (X = features, Y = label)
+  float ** train_X = matrix(features, train_examples);
+  float ** train_Y = matrix(1, train_examples);
+  float ** dev_X = matrix(features, dev_examples);
+  float ** dev_Y = matrix(1, dev_examples);   
 
-  // initialize dev matrices (X = features, Y = label)
-  float ** dev_X = alloc_matf(features, dev_examples);
-  float ** dev_Y = alloc_matf(1, dev_examples);   
-
-  // initialize weight matrix (transposed)
-  float ** W = alloc_matf(1, features);
-    init_matrix_val(1, features, W, 0.5);
+  // initialize weight matrix (transposed, may be revised)
+  float ** W = matrix(1, features);
+    init_matrix_val(1, features, W, 0.0);
 
   // initialize bias scalar
   float b = 0.0;
@@ -80,66 +76,71 @@ int main () {
     int survived = atoi(csvfield(0));                   // whether the label is 0 or 1 (dead or survived)
     update_Y[0][index] = survived ? 1 : 0;              // set the label value for the given example
 
-
     for (j = 0; j < features; j ++) {
-      update_X[j][index] = atof(csvfield(j+1));           // set each feature value for the given example
+      update_X[j][index] = atof(csvfield(j+1));         // set each feature value for the given example
     }
   }
 
-  //print_matrix(features, train_examples, train_X, "Train X: \n");
-
   for(e = 0; e < epochs; e ++) {
-    //if (e == 0) print_matrix(features, train_examples, train_X, "Train_X: \n");
-    float ** WX = product(1, features, features, train_examples, W, train_X);
-    //print_matrix(1, train_examples, WX, "wX: \n");
+    // compute predictions
+    float ** A = forward_pass(train_X, features, examples, W, b);
 
-    bump(1, train_examples, WX, b);
-    //print_matrix(1, train_examples, WX, "Z: \n");
-
-    sigmoid(1, train_examples, WX);
-    //print_matrix(1, train_examples, WX, "A: \n");
-
-    float cost = compute_cost(1, train_examples, WX, train_Y);
-    float ** da = compute_da(1, train_examples, WX, train_Y);
-    float ** dZ = compute_dZ(1, train_examples, WX, train_Y);
+    // compute derivatives for gradient descent
+    float cost = compute_cost(1, train_examples, A, train_Y);
+    float ** dZ = compute_dZ(1, train_examples, A, train_Y);
     float ** dW = compute_dW(train_X, features, train_examples, dZ, 1, train_examples);
     float db = compute_db(1, train_examples, dZ);
 
-    print_matrix(1, features, W, "\nW pre-update: \n");
+    // update parameters
     update_W(W, dW, features, learning_rate);
-    print_matrix(1, features, W, "\nW post-update: \n");
-
-    printf("b pre-update: %f\n", b);
     update_b(&b, db, learning_rate);
-    printf("b post-update: %f\n", b);
+
   }
 
-  // w.shape = (1, features)
-  // x.shape = (features, examples)
-  // wx = (1, examples)
+  print_matrix(1, features, W, "W: ");
+  printf("b: %f\n", b);
 
-  clearf(features, train_X);
-  clearf(1, train_Y);
-  clearf(features, dev_X);
-  clearf(1, dev_Y);
+  // free remaining matrices
+  clear(features, train_X);
+  clear(1, train_Y);
+  clear(features, dev_X);
+  clear(1, dev_Y);
 }
 
-void update_W(float ** W, float ** dW, int m, float learning_rate) {
-  for (int i = 0; i < m; i ++)
-    W[0][i] -= (learning_rate * dW[0][i]);
+float ** forward_pass(float ** X, int features, int examples, float ** W, float b) {
+  // multiply input features by coefficients across all examples
+  float ** WX = product(1, features, features, examples, W, X);
+
+  bump(1, examples, WX, b);   // add bias to create the Z vector
+  sigmoid(1, examples, WX);   // element-wise sigmoid yields A vector (predictions)
+
+  return WX;
 }
 
-void update_b(float * b, float db, float learning_rate) {
-  *b -= (learning_rate * db);
-}
-
-float compute_db(int n, int m, float ** dZ) {
+float compute_cost(int n, int m, float ** X, float ** Y) {
   float sum = 0.0;
 
-  for (int i = 0; i < m; i ++)
-    sum += dZ[0][i];
+  for (int i = 0; i < m; i ++) {
+    float y = Y[0][i];
+    float y_hat = X[0][i];
 
-  return sum / (float) m;
+    sum += (float) y * logf(y_hat) + ((1 - y) * logf(1 - y_hat));
+  }
+
+  return - (sum / (float) m);
+}
+
+float ** compute_dZ(int n, int m, float ** X, float ** Y) {
+  float ** dZ = matrix(n, m);
+  
+  for (int i = 0; i < m; i ++) {
+    float y = Y[0][i];
+    float a = X[0][i];
+
+    dZ[0][i] = (float) a - y;
+  }
+
+  return dZ;
 }
 
 float ** compute_dW(float ** X, int n, int m, float ** dZ, int p, int q) {
@@ -159,71 +160,20 @@ float ** compute_dW(float ** X, int n, int m, float ** dZ, int p, int q) {
   return dWT;  
 }
 
-float ** compute_dZ(int n, int m, float ** X, float ** Y) {
-  float ** dZ = alloc_matf(n, m);
-  
-  for (int i = 0; i < m; i ++) {
-    float y = Y[0][i];
-    float a = X[0][i];
-
-    dZ[0][i] = (float) a - y;
-  }
-
-  return dZ;
-}
-
-float ** compute_da(int n, int m, float ** X, float ** Y) {
-  float ** da = alloc_matf(n, m);
-  
-  for (int i = 0; i < m; i ++) {
-    float y = Y[0][i];
-    float a = X[0][i];
-
-    da[0][i] = (float) (-y / a) + ((1 - y) / (1 - a));
-  }
-
-  return da;
-}
-
-float compute_cost(int n, int m, float ** X, float ** Y) {
+float compute_db(int n, int m, float ** dZ) {
   float sum = 0.0;
 
-  for (int i = 0; i < m; i ++) {
-    float y = Y[0][i];
-    float y_hat = X[0][i];
+  for (int i = 0; i < m; i ++)
+    sum += dZ[0][i];
 
-    sum += (float) y * logf(y_hat) + ((1 - y) * logf(1 - y_hat));
-  }
-
-  return - (sum / (float) m);
+  return sum / (float) m;
 }
 
-static int ** alloc_mati(int n, int m) {
-  int **X;
-  X = (int **) malloc(n * sizeof (*X));
-
-  for (int i=0; i<n; i++)
-    X[i] = (int *) malloc(m * sizeof(*X[i]));
-
-  return X;
-}
-static float ** alloc_matf(int n, int m) {
-  float **X;
-  X = (float **) malloc(n * sizeof (*X));
-
-  for (int i=0; i<n; i++)
-    X[i] = (float *) malloc(m * sizeof(*X[i]));
-
-  return X;
+void update_W(float ** W, float ** dW, int m, float learning_rate) {
+  for (int i = 0; i < m; i ++)
+    W[0][i] -= (learning_rate * dW[0][i]);
 }
 
-void cleari(int n, int** X){
-  for (int i=0; i<n; i++)
-    free(X[i]);
-  free(X);
-}
-void clearf(int n, float** X){
-  for (int i=0; i<n; i++)
-    free(X[i]);
-  free(X);
+void update_b(float * b, float db, float learning_rate) {
+  *b -= (learning_rate * db);
 }
