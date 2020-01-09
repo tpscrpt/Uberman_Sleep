@@ -83,7 +83,7 @@ int main () {
 
   for(e = 0; e < epochs; e ++) {
     // compute predictions
-    float ** A = forward_pass(train_X, features, examples, W, b);
+    float ** A = forward_pass(train_X, features, train_examples, W, b);
 
     // compute derivatives for gradient descent
     float cost = compute_cost(1, train_examples, A, train_Y);
@@ -95,10 +95,27 @@ int main () {
     update_W(W, dW, features, learning_rate);
     update_b(&b, db, learning_rate);
 
+    clear(1, A);
+    clear(1, dZ);
+    clear(1, dW);
   }
 
-  print_matrix(1, features, W, "W: ");
-  printf("b: %f\n", b);
+  print_matrix(1, features, W, "\nW: ");
+  printf("b: %f\n\n", b);
+
+  // ---- run predictions on dev set ----------------
+  float ** A = forward_pass(dev_X, features, dev_examples, W, b);
+  float accurate = 0.0;
+
+  for (i = 0; i < dev_examples; i ++)
+    if (A[0][i] > 0.5 && dev_Y[0][i] > 0.5 ||
+        A[0][i] <= 0.5 && dev_Y[0][i] < 0.5) accurate++;
+
+  accurate /= (float) dev_examples;
+
+  printf("Accuracy on dev set: %f\n\n", accurate);
+
+  clear(1, A);
 
   // free remaining matrices
   clear(features, train_X);
