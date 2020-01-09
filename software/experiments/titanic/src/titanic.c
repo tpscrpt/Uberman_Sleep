@@ -1,7 +1,3 @@
-//train_cleaned = np.loadtxt("output/train_cleaned.csv", dtype=float, skiprows=1, delimiter=',')
-//test_cleaned = np.loadtxt("output/test_cleaned.csv", dtype=float, skiprows=1, delimiter=',')
-#define __FILENAME__ (__builtin_strrchr(__FILE__, '/') ? __builtin_strrchr(__FILE__, '/') + 1 : __FILE__)
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
