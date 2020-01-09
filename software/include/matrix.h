@@ -6,6 +6,7 @@
 
 extern void sigmoid(int n, int m, float ** X);
 extern void bump(int n, int m, float ** X, float b);
+extern void init_matrix_val(int n, int m, float ** X, float val);
 
 /* <https://github.com/gregdhill/lin-reg/blob/master/lreg.c> */
 extern float** matrix(int n, int m);

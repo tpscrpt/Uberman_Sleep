@@ -12,6 +12,11 @@ void bump(int n, int m, float ** X, float b) {
       X[i][j] += b;
 }
 
+void init_matrix_val(int n, int m, float ** X, float val) {
+  for (int i = 0; i < n; i ++)
+    for (int j = 0; j < m; j ++)
+      X[i][j] = val;
+}
 
 /* <https://github.com/gregdhill/lin-reg/blob/master/lreg.c> */
 
