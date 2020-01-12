@@ -24,8 +24,7 @@ int main () {
   int i, j, e;
 
   // constants for the logistic regression
-  int batch_size = 10;
-  double learning_rate = 0.1;
+  float learning_rate = 0.1;
   int epochs = 800;
 
   // number of features for each example
