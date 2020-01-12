@@ -14,8 +14,9 @@ extern Matrix * transpose(Matrix * X);
 extern Matrix * product(Matrix * A, Matrix * B);
 
 extern void sigmoid(Matrix * X);
+extern void relu(Matrix * X, float a);
 extern void bump(Matrix * X, float b);
-extern void init_val(Matrix * X, float val);
+extern void init_matrix(Matrix * X, float val);
 extern void clear(Matrix * X);
 
 

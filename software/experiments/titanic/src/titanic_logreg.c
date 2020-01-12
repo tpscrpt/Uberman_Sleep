@@ -51,7 +51,7 @@ int main () {
 
   // initialize weight matrix (transposed, may be revised)
   Matrix * W = matrix(1, features);
-    init_val(W, 0.0);
+    init_matrix(W, 0.0);
 
   // initialize bias scalar
   float b = 0.0;

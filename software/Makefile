@@ -8,10 +8,14 @@ OBJS    := $(patsubst $(SRC)/%.c,$(OBJ)/%.o,$(SRCS))
 CFLAGS  :=-I$(INCLUDE)
 LDLIBS  := -lm
 
-TITANIC := ./experiments/titanic/src/titanic.c
+TITANIC_LOGREG := ./experiments/titanic/src/titanic_logreg.c
+TITANIC_MLP := ./experiments/titanic/src/titanic_mlp.c
 
-titanic: $(OBJS) | $(BIN)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(TITANIC) $^ -o $(BIN)/$@ $(LDLIBS)
+titanic_logreg: $(OBJS) | $(BIN)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(TITANIC_LOGREG) $^ -o $(BIN)/$@ $(LDLIBS)
+
+titanic_mlp: $(OBJS) | $(BIN)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(TITANIC_MLP) $^ -o $(BIN)/$@ $(LDLIBS)
 
 
 $(OBJ)/%.o: $(SRC)/%.c | $(OBJ)

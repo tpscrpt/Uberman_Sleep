@@ -6,7 +6,7 @@
 void logreg(
   Matrix * X,   // data
   Matrix * Y,   // labels
-  Matrix * W,   // weights
+  Matrix * W,   // weights, pre-transposed
   float  * b,   // intercept
   int      m,   // examples
   int      nx,  // features

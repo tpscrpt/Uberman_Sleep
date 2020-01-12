@@ -1,15 +1,47 @@
 #include "matrix.h"
+#include <stdarg.h>
 
-void sigmoid(Matrix * X) {
+#define NULL_PTR (void *)(0)
+
+typedef void (*op_t)(float *, float[]);
+
+// Generic loop over all of the elements in X, applying
+// op_t to each of them and passing hyperparameters
+static void inplace_op(Matrix * X, op_t op, float params[]) {
   for (int i = 0; i < X->n; i ++)
     for (int j = 0; j < X->m; j ++)
-      X->d[i][j] = 1 / (1 + exp(-X->d[i][j]));
+       op(&X->d[i][j], params);
 }
 
+// E.g.: each element is passed through *val, no params
+// are used for the sigmoid function
+static void sigmoid_op(float *val, float params[]) {
+  *val = 1 / (1 + exp(-(*val)));
+}
+// Helper function, could be omitted for less succinct
+// source code
+void sigmoid(Matrix * X) {
+  inplace_op(X, &sigmoid_op, NULL_PTR);
+}
+
+// Similar to sigmoid_op, but this time a param is used
+// as a coefficient on val if it's negative
+static void relu_op(float *val, float params[]) {
+  *val = *val > 0 ? *val : *val * params[0];
+}
+// Helper function which would also be unintuitive
+// Note: for ReLU pass 0 as "a", Leaky pass anything
+void relu(Matrix * X, float a) {
+  float params[1] = { a };
+  inplace_op(X, &relu_op, params);
+}
+
+static void bump_op(float *val, float params[]) {
+  *val = *val + params[0];
+}
 void bump(Matrix * X, float b) {
-  for (int i = 0; i < X->n; i ++)
-    for (int j = 0; j < X->m; j ++)
-      X->d[i][j] += b;
+  float params[1] = { b };
+  inplace_op(X, &bump_op, params);
 }
 
 Matrix * matrix(int n, int m) {
@@ -32,11 +64,14 @@ void clear(Matrix * X) {
   free(X->d);
 }
 
-void init_val(Matrix * X, float val) {
-  for (int i = 0; i < X->n; i ++)
-    for (int j = 0; j < X->m; j ++)
-      X->d[i][j] = val;
+void init_op(float * val, float params[]) {
+  *val = params[0];
 }
+void init_matrix(Matrix * X, float val) {
+  float params[1] = { val };
+  inplace_op(X, &init_op, params);
+}
+
 
 Matrix * transpose(Matrix * X) {
   Matrix * X_ = matrix(X->m, X->n);
