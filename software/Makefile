@@ -15,7 +15,7 @@ titanic_logreg: $(OBJS) | $(BIN)
 	$(CC) $(CFLAGS) $(LDFLAGS) $(TITANIC_LOGREG) $^ -o $(BIN)/$@ $(LDLIBS)
 
 titanic_mlp: $(OBJS) | $(BIN)
-	$(CC) $(CFLAGS) $(LDFLAGS) $(TITANIC_MLP) $^ -o $(BIN)/$@ $(LDLIBS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(TITANIC_MLP) -g $^ -o $(BIN)/$@ $(LDLIBS)
 
 
 $(OBJ)/%.o: $(SRC)/%.c | $(OBJ)
