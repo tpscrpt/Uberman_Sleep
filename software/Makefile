@@ -5,7 +5,7 @@ INCLUDE := ./include
 SRC     := ./src
 SRCS    := $(wildcard $(SRC)/*.c)
 OBJS    := $(patsubst $(SRC)/%.c,$(OBJ)/%.o,$(SRCS))
-CFLAGS  :=-I$(INCLUDE)
+CFLAGS  :=-I$(INCLUDE) -g -Wall
 LDLIBS  := -lm
 
 TITANIC_LOGREG := ./experiments/titanic/src/titanic_logreg.c

@@ -3,7 +3,6 @@
 #include <math.h>
 #include "csv.h"
 #include "matrix.h"
-#include "testing.h"
 #include "logreg.h"
 
 /*
@@ -86,8 +85,8 @@ int main () {
   float accurate = 0.0;
 
   for (i = 0; i < dev_examples; i ++)
-    if (dev_A->d[0][i] > 0.5 && dev_Y->d[0][i] > 0.5 ||
-        dev_A->d[0][i] <= 0.5 && dev_Y->d[0][i] < 0.5) accurate++;
+    if ((dev_A->d[0][i] > 0.5 && dev_Y->d[0][i] > 0.5) ||
+        (dev_A->d[0][i] <= 0.5 && dev_Y->d[0][i] < 0.5)) accurate++;
 
   accurate /= (float) dev_examples;
 

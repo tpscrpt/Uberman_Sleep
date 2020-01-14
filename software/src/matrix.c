@@ -1,47 +1,29 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "matrix.h"
-#include <stdarg.h>
 
-#define NULL_PTR (void *)(0)
-
-typedef void (*op_t)(float *, float[]);
-
-// Generic loop over all of the elements in X, applying
-// op_t to each of them and passing hyperparameters
-static void inplace_op(Matrix * X, op_t op, float params[]) {
+void sigmoid(Matrix * X) {
   for (int i = 0; i < X->n; i ++)
     for (int j = 0; j < X->m; j ++)
-       op(&X->d[i][j], params);
+      X->d[i][j] = 1 / (1 + exp(-X->d[i][j]));
 }
 
-// E.g.: each element is passed through *val, no params
-// are used for the sigmoid function
-static void sigmoid_op(float *val, float params[]) {
-  *val = 1 / (1 + exp(-(*val)));
-}
-// Helper function, could be omitted for less succinct
-// source code
-void sigmoid(Matrix * X) {
-  inplace_op(X, &sigmoid_op, NULL_PTR);
-}
-
-// Similar to sigmoid_op, but this time a param is used
-// as a coefficient on val if it's negative
-static void relu_op(float *val, float params[]) {
-  *val = *val > 0 ? *val : *val * params[0];
-}
-// Helper function which would also be unintuitive
-// Note: for ReLU pass 0 as "a", Leaky pass anything
 void relu(Matrix * X, float a) {
-  float params[1] = { a };
-  inplace_op(X, &relu_op, params);
+  for (int i = 0; i < X->n; i ++)
+    for (int j = 0; j < X->m; j ++)
+      X->d[i][j] = X->d[i][j] > 0 ? X->d[i][j] : a * X->d[i][j];
 }
 
-static void bump_op(float *val, float params[]) {
-  *val = *val + params[0];
-}
 void bump(Matrix * X, float b) {
-  float params[1] = { b };
-  inplace_op(X, &bump_op, params);
+  for (int i = 0; i < X->n; i ++)
+    for (int j = 0; j < X->m; j ++)
+      X->d[i][j] += b;
+}
+
+void bump_column(Matrix * X, Matrix * b) {
+    for (int i = 0; i < X->n; i ++)
+        for (int j = 0; j < X->m; j ++)
+            X->d[i][j] += b->d[i][0];
 }
 
 Matrix * matrix(int n, int m) {
@@ -60,18 +42,20 @@ Matrix * matrix(int n, int m) {
 void clear(Matrix * X) {
   for (int i = 0; i < X->n; i ++)
     free(X->d[i]);
-  
+
   free(X->d);
 }
 
-void init_op(float * val, float params[]) {
-  *val = params[0];
-}
 void init_matrix(Matrix * X, float val) {
-  float params[1] = { val };
-  inplace_op(X, &init_op, params);
+  for (int i = 0; i < X->n; i ++)
+    for (int j = 0; j < X->m; j ++)
+        X->d[i][j] = val;
 }
-
+void init_matrix_random(Matrix * X) {
+  for (int i = 0; i < X->n; i ++)
+    for (int j = 0; j < X->m; j ++)
+      X->d[i][j] = (float) drand48();
+}
 
 Matrix * transpose(Matrix * X) {
   Matrix * X_ = matrix(X->m, X->n);
@@ -106,4 +90,25 @@ Matrix * product(Matrix * A, Matrix * B) {
   return C;
 }
 
+Matrix * matrix_copy(Matrix * X) {
+  Matrix * X_ = matrix(X->n, X->m);
+
+  for (int i = 0; i < X->n; i++)
+    for (int j = 0; j < X->m; j++)
+      X_->d[i][j] = X->d[i][j];
+
+  return X_;
+}
+
+void print_matrix(Matrix * X, char* msg) {
+  printf("%s", msg);
+  printf("(%d, %d)\n", X->n, X->m);
+
+  for (int i = 0; i < X->n; i ++) {
+    for (int j = 0; j < X->m; j ++)
+      printf("%f ", X->d[i][j]);
+
+    printf("\n");
+  }
+}
 /* </https://github.com/gregdhill/lin-reg/blob/master/lreg.c> */
